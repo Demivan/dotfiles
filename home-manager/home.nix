@@ -18,10 +18,6 @@ in
   # release notes.
   home.stateVersion = "23.11"; # Please read the comment before changing.
 
-  nixpkgs.config.allowUnfree = true; # Slack
-
-  fonts.fontconfig.enable = true;
-
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
@@ -34,11 +30,26 @@ in
 
     # General
     firefox-devedition
-    obsidian
 
     # Development
     git
+    p7zip
+    bash
+    nodejs_21
+    corepack_21 # pnpm
+    dotnet-sdk_8
+    jetbrains-toolbox
     vscodium
+
+    # NixOS
+    nil
+
+    remmina
+
+    opentofu
+    ansible
+    nomad
+    vault
 
     # Communication
     slack
@@ -46,13 +57,9 @@ in
 
     # Gaming
     bottles
-    steam
   ];
 
-  nixpkgs.config.permittedInsecurePackages = [
-    "electron-25.9.0" # Needed for Obsidian for now
-  ];
-
+  fonts.fontconfig.enable = true;
   xdg.configFile = {
     "fontconfig/conf.d/52-hm-default-fonts.conf".text = ''
       <?xml version='1.0'?>
@@ -93,9 +100,7 @@ in
   };
 
   # Let Home Manager install and manage itself.
-  programs.home-manager = {
-    enable = true;
-  };
+  programs.home-manager.enable = true;
 
   # UI
   services.mako = {
@@ -138,6 +143,12 @@ in
         tweaks = [ "rimless" ];
         variant = "mocha";
       };
+    };
+
+    cursorTheme = {
+      package = pkgs.bibata-cursors;
+      name = "Bibata-Modern-Ice";
+      size = 22;
     };
   };
 }
