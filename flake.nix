@@ -10,25 +10,30 @@
     nil-lsp.url = "github:oxalica/nil";
   };
 
-  outputs = inputs @ { self, nixpkgs, home-manager, ... }:
-    let
-      system = "x86_64-linux";
+  outputs = inputs @ {
+    self,
+    nixpkgs,
+    home-manager,
+    ...
+  }: let
+    system = "x86_64-linux";
 
-      pkgs = import nixpkgs {
-        inherit system;
+    pkgs = import nixpkgs {
+      inherit system;
 
-        config = {
-          allowUnfree = true;
-        };
+      config = {
+        allowUnfree = true;
       };
+    };
   in {
     nixosConfigurations."ivan-pc" = nixpkgs.lib.nixosSystem {
-      specialArgs = { inherit pkgs; };
+      specialArgs = {inherit pkgs;};
 
       modules = [
         ./configuration.nix
 
-        home-manager.nixosModules.home-manager {
+        home-manager.nixosModules.home-manager
+        {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
 
@@ -38,5 +43,7 @@
         }
       ];
     };
+
+    formatter."${system}" = pkgs.alejandra;
   };
 }

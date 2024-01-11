@@ -1,9 +1,11 @@
-{ config, pkgs, osConfig, ... }:
-
-let
-  vars = import ./vars.nix;
-in
 {
+  config,
+  pkgs,
+  osConfig,
+  ...
+}: let
+  vars = import ./vars.nix;
+in {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "demivan";
@@ -26,7 +28,7 @@ in
     wofi
     fish
     waybar
-    (nerdfonts.override { fonts = [ vars.font ]; })
+    (nerdfonts.override {fonts = [vars.font];})
 
     # General
     firefox-devedition
@@ -109,9 +111,7 @@ in
   };
 
   # Shell
-  programs.fish = {
-    enable = true;
-  };
+  programs.fish = {enable = true;};
 
   programs.kitty = {
     enable = true;
@@ -127,7 +127,8 @@ in
     enable = true;
     settings = {
       add_newline = false;
-      directory.fish_style_pwd_dir_length = 1; # turn on fish directory truncation
+      directory.fish_style_pwd_dir_length =
+        1; # turn on fish directory truncation
       directory.truncation_length = 2; # number of directories not to truncate
     };
   };
@@ -138,9 +139,9 @@ in
     theme = {
       name = "Catppuccin-Mocha-Compact-Blue-Dark";
       package = pkgs.catppuccin-gtk.override {
-        accents = [ "blue" ];
+        accents = ["blue"];
         size = "compact";
-        tweaks = [ "rimless" ];
+        tweaks = ["rimless"];
         variant = "mocha";
       };
     };

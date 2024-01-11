@@ -1,14 +1,16 @@
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
-{ config, lib, pkgs, ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -22,13 +24,13 @@
   services.xl2tpd.enable = true;
   services.strongswan = {
     enable = true;
-    secrets = [ "/etc/ipsec.d/ipsec.secrets" "ipsec.d/ipsec.nm-l2tp.secrets" ];
+    secrets = ["/etc/ipsec.d/ipsec.secrets" "ipsec.d/ipsec.nm-l2tp.secrets"];
   };
 
   # Set your time zone.
   time.timeZone = "Europe/Kyiv";
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];  
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
@@ -38,25 +40,23 @@
   hardware.opengl = {
     enable = true;
     driSupport32Bit = true;
-    extraPackages = with pkgs; [
-      libGL
-    ];
+    extraPackages = with pkgs; [libGL];
     setLdLibraryPath = true;
   };
 
   nixpkgs.config.allowUnfree = true; # Slack, Steam, etc.
   programs.steam = {
     enable = true;
-    package = with pkgs; steam.override { extraPkgs = pkgs: [ attr ]; };
+    package = with pkgs; steam.override {extraPkgs = pkgs: [attr];};
   };
 
   security.polkit.enable = true;
   systemd = {
     user.services.polkit-gnome-authentication-agent-1 = {
       description = "polkit-gnome-authentication-agent-1";
-      wantedBy = [ "graphical-session.target" ];
-      wants = [ "graphical-session.target" ];
-      after = [ "graphical-session.target" ];
+      wantedBy = ["graphical-session.target"];
+      wants = ["graphical-session.target"];
+      after = ["graphical-session.target"];
       serviceConfig = {
         Type = "simple";
         ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
@@ -81,16 +81,16 @@
   users.users.demivan = {
     isNormalUser = true;
     shell = pkgs.fish;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = ["wheel"]; # Enable ‘sudo’ for the user.
   };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-     wget
+    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    wget
   ];
-  
+
   programs.hyprland.enable = true;
   programs.fish.enable = true;
 
@@ -151,4 +151,3 @@
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "23.11"; # Did you read the comment?
 }
-

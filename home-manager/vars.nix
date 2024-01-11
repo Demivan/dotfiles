@@ -1,3 +1,1 @@
-{
-  font = "JetBrainsMono";
-}
+{font = "JetBrainsMono";}
