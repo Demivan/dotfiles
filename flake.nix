@@ -7,7 +7,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nil-lsp.url = "github:oxalica/nil";
   };
 
   outputs = inputs @ {
@@ -44,6 +43,6 @@
       ];
     };
 
-    formatter."${system}" = pkgs.alejandra;
+    formatter.${system} = pkgs.alejandra;
   };
 }
