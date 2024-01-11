@@ -28,26 +28,11 @@
   # Set your time zone.
   time.timeZone = "Europe/Kyiv";
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
   nix.settings.experimental-features = [ "nix-command" "flakes" ];  
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
   services.blueman.enable = true;
-  
-  # Select internationalisation properties.
-  # i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  #   useXkbConfig = true; # use xkb.options in tty.
-  # };
-
-  # Enable the X11 windowing system.
-  # services.xserver.enable = true;
 
   # For steam support
   hardware.opengl = {
@@ -64,13 +49,6 @@
     enable = true;
     package = with pkgs; steam.override { extraPkgs = pkgs: [ attr ]; };
   };
-
-  # Configure keymap in X11
-  # services.xserver.xkb.layout = "us";
-  # services.xserver.xkb.options = "eurosign:e,caps:escape";
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
 
   security.polkit.enable = true;
   systemd = {
@@ -89,7 +67,6 @@
     };
   };
 
-
   # Sound config
   security.rtkit.enable = true;
   services.pipewire = {
@@ -99,9 +76,6 @@
     pulse.enable = true;
     wireplumber.enable = true;
   };
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.demivan = {
@@ -116,20 +90,11 @@
      vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
      wget
   ];
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
   
   programs.hyprland.enable = true;
   programs.fish.enable = true;
 
   # List services that you want to enable:
-
   services.greetd = {
     enable = true;
     settings = {
@@ -155,11 +120,7 @@
       xdg-desktop-portal-gtk
     ];
     wlr.enable = true;
-  }; 
-
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
