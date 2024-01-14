@@ -112,6 +112,83 @@ in {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
+  # Hyprland
+  wayland.windowManager.hyprland = let
+    workspaces = (map toString (lib.lists.range 1 8)); in 
+  {
+    enable = true;
+
+    settings = {
+      "$mod" = "SUPER";
+
+      general = {
+        border_size = 3;
+        no_border_on_floating = false;
+        gaps_in = 6;
+        gaps_out = 12;
+        resize_on_border = true;
+        extend_border_grab_area = 15;
+
+        # col.active_border = 
+        # col.inactive_border = 
+        # col.group_border = 
+        # col.group_border_active = 
+      };
+
+      decoration = {
+        rounding = 12;
+        "blur:enabled" = false;
+        "blur:xray" = false;
+        drop_shadow = true;
+        shadow_range = 25;
+        shadow_render_power = 3;
+        shadow_ignore_window = false;
+        "col.shadow" = "0x66000000";
+        "col.shadow_inactive" = "0x66000000";
+      };
+
+      bind = 
+        [
+          # Apps
+          "$mod, Return, exec, kitty"
+
+          "$mod, Q, killactive"
+
+          # Switch between windows
+          "$mod, Tab, cyclenext"
+          "$mod, Tab, bringactivetotop"
+        ]
+        ++
+        (map (w: "$mod, ${w}, workspace, ${w}") workspaces)
+        ++
+        (map (w: "$mod_SHIFT, ${w}, movetoworkspace, ${w}") workspaces)
+        ;
+
+      bindm = [
+        "$mod, mouse:272, movewindow"
+        "$mod, mouse:273, resizewindow"
+      ];
+
+      animations = {
+        enabled = true;
+        animation = [
+          "windowsIn,1,5,default,popin 0%"
+          "windowsOut,1,5,default,popin"
+          "windowsMove,1,5,default,slide"
+          "fadeIn,1,8,default"
+          "fadeOut,1,8,default"
+          "fadeSwitch,1,8,default"
+          "fadeShadow,1,8,default"
+          "fadeDim,1,8,default"
+          "border,1,10,default"
+          "borderangle,1,10,default"
+          "workspaces,1,3,default,slide"
+          "specialWorkspace,1,5,default,fade"
+        ];
+      };
+    };
+  };
+
   # UI
   services.mako = {
     enable = true;
