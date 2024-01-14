@@ -28,7 +28,7 @@ in {
     wofi
     fish
     waybar
-    (nerdfonts.override {fonts = [vars.font];})
+    (nerdfonts.override {fonts = [vars.font.name];})
 
     # General
     firefox-devedition
@@ -41,7 +41,6 @@ in {
     corepack_21 # pnpm
     dotnet-sdk_8
     jetbrains-toolbox
-    vscodium
 
     # NixOS
     nil
@@ -73,7 +72,7 @@ in {
         <!-- Default fonts -->
         <alias binding="same">
           <family>monospace</family>
-          <prefer>JetBrainsMono Nerd Font</prefer>
+          <prefer>${vars.font.family}</prefer>
         </alias>
       </fontconfig>
     '';
@@ -97,7 +96,7 @@ in {
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'.
   home.sessionVariables = {
-    NIXOS_OZONE_WL = "1";
+    # NIXOS_OZONE_WL = "1";
     # EDITOR = "emacs";
   };
 
@@ -130,6 +129,30 @@ in {
       directory.fish_style_pwd_dir_length =
         1; # turn on fish directory truncation
       directory.truncation_length = 2; # number of directories not to truncate
+    };
+  };
+
+  # Codium
+  programs.vscode = {
+    enable = true;
+    package = pkgs.vscodium;
+
+    extensions = with pkgs.vscode-extensions; [
+      catppuccin.catppuccin-vsc
+    ];
+
+    userSettings = {
+      "window.titleBarStyle" = "custom";
+
+      "workbench.colorTheme" = "Catppuccin Mocha";
+
+      "editor.fontFamily" = vars.font.family;
+      "editor.fontSize" = 16;
+      "editor.fontLigatures" = true;
+      "terminal.integrated.fontSize" = 16;
+
+      "nix.enableLanguageServer" = true;
+      "nix.serverPath" = "nil";
     };
   };
 

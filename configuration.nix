@@ -92,7 +92,8 @@
   ];
 
   programs.hyprland.enable = true;
-  programs.fish.enable = true;
+  # Hint to Electron apps to run native Wayland
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   # List services that you want to enable:
   services.greetd = {
@@ -121,6 +122,8 @@
     ];
     wlr.enable = true;
   };
+
+  programs.fish.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
