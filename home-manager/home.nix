@@ -135,6 +135,10 @@ in {
         # col.group_border_active = 
       };
 
+      misc = {
+        vrr = 1;
+      };
+
       decoration = {
         rounding = 12;
         "blur:enabled" = false;
@@ -187,6 +191,10 @@ in {
         ];
       };
     };
+
+    extraConfig = ''
+    exec-once=hyprctl setcursor Bibata-Modern-Ice 22
+    '';
   };
 
   # UI
@@ -200,10 +208,13 @@ in {
 
   programs.kitty = {
     enable = true;
+    font = {
+      name = vars.font.family;
+      size = 12;
+    };
     theme = "Catppuccin-Mocha";
     settings = {
-      font_size = 12;
-      window_padding_width = 4;
+      window_padding_width = 6;
     };
     shellIntegration.enableFishIntegration = true;
   };
