@@ -25,9 +25,6 @@ in {
   # environment.
   home.packages = with pkgs; [
     # Looks
-    rofi
-    wofi
-    fish
     waybar
     (nerdfonts.override {fonts = [vars.font.name];})
 
@@ -37,7 +34,7 @@ in {
       obsidian.override {
         electron = electron_25.overrideAttrs (_: {
           preFixup = "patchelf --add-needed ${libglvnd}/lib/libEGL.so.1 $out/bin/electron"; # NixOS/nixpkgs#272912
-          meta.knownVulnerabilities = [ ]; # NixOS/nixpkgs#273611
+          meta.knownVulnerabilities = []; # NixOS/nixpkgs#273611
         });
       }
     ))
@@ -113,9 +110,80 @@ in {
   programs.home-manager.enable = true;
 
   # Hyprland
+  programs.wofi = {
+    enable = true;
+    settings = {
+      # Geometry
+      width = "600px";
+      height = "500px";
+
+      # Style
+      hide_scroll = true;
+      normal_window = true;
+
+      # Images
+      allow_markup = true;
+      allow_images = true;
+      image_size = 24;
+
+      # Keys
+      key_expand = "Tab";
+      key_exit = "Escape";
+    };
+
+    style = ''
+      * {
+        font-family: "${vars.font.family}", sans-serif;
+        font-size: 14px;
+      }
+
+      #window {
+      	background-color: ${vars.colors.base};
+      	color: ${vars.colors.text};
+      }
+
+      #outer-box {
+      	padding: 10px;
+      }
+
+      #input {
+      	padding: 4px 12px;
+      }
+
+      #scroll {
+      	margin-top: 10px;
+      }
+
+      #img {
+      	padding-right: 8px;
+      }
+
+      #text {
+      	color: ${vars.colors.text};
+      }
+
+      #text:selected {
+      	color: ${vars.colors.base};
+      }
+
+      #entry {
+      	padding: 6px;
+      }
+
+      #entry:selected {
+      	background-color: ${vars.colors.blue};
+      	color: ${vars.colors.base};
+      }
+
+      #input, #entry:selected {
+      	border-radius: 12px;
+      }
+    '';
+  };
+
   wayland.windowManager.hyprland = let
-    workspaces = (map toString (lib.lists.range 1 8)); in 
-  {
+    workspaces = map toString (lib.lists.range 1 8);
+  in {
     enable = true;
 
     settings = {
@@ -129,10 +197,10 @@ in {
         resize_on_border = true;
         extend_border_grab_area = 15;
 
-        # col.active_border = 
-        # col.inactive_border = 
-        # col.group_border = 
-        # col.group_border_active = 
+        # col.active_border =
+        # col.inactive_border =
+        # col.group_border =
+        # col.group_border_active =
       };
 
       misc = {
@@ -145,28 +213,28 @@ in {
         "blur:xray" = false;
         drop_shadow = true;
         shadow_range = 25;
-        shadow_render_power = 3;
+        shadow_render_power = 15;
         shadow_ignore_window = false;
-        "col.shadow" = "0x66000000";
-        "col.shadow_inactive" = "0x66000000";
+        "col.shadow" = vars.colors.base;
+        "col.shadow_inactive" = vars.colors.base;
       };
 
-      bind = 
+      bind =
         [
           # Apps
           "$mod, Return, exec, kitty"
 
           "$mod, Q, killactive"
 
+          # Wofi
+          "$mod, D, exec, wofi --show drun --prompt 'Search...'"
+
           # Switch between windows
           "$mod, Tab, cyclenext"
           "$mod, Tab, bringactivetotop"
         ]
-        ++
-        (map (w: "$mod, ${w}, workspace, ${w}") workspaces)
-        ++
-        (map (w: "$mod_SHIFT, ${w}, movetoworkspace, ${w}") workspaces)
-        ;
+        ++ (map (w: "$mod, ${w}, workspace, ${w}") workspaces)
+        ++ (map (w: "$mod_SHIFT, ${w}, movetoworkspace, ${w}") workspaces);
 
       bindm = [
         "$mod, mouse:272, movewindow"
@@ -193,7 +261,7 @@ in {
     };
 
     extraConfig = ''
-    exec-once=hyprctl setcursor Bibata-Modern-Ice 22
+      exec-once=hyprctl setcursor Bibata-Modern-Ice 22
     '';
   };
 
