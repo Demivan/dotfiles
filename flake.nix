@@ -21,23 +21,23 @@
 
     pkgs = import nixpkgs {
       inherit system;
+
+      config.allowUnfree = true;
     };
   in {
     nixosConfigurations."ivan-pc" = nixpkgs.lib.nixosSystem {
       modules = [
         ./configuration.nix
         chaotic.nixosModules.default
-
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-
-          home-manager.extraSpecialArgs = inputs;
-
-          home-manager.users.demivan = import ./home-manager/home.nix;
-        }
       ];
+    };
+
+    homeConfigurations."demivan" = home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
+
+      extraSpecialArgs = inputs;
+
+      modules = [ ./home-manager/home.nix ];
     };
 
     formatter.${system} = pkgs.alejandra;
