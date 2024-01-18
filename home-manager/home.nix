@@ -205,6 +205,7 @@ in {
 
       misc = {
         vrr = 1;
+        focus_on_activate = true;
       };
 
       decoration = {
@@ -232,6 +233,7 @@ in {
           # Switch between windows
           "$mod, Tab, cyclenext"
           "$mod, Tab, bringactivetotop"
+          "$mod, F, fullscreen, 0"
         ]
         ++ (map (w: "$mod, ${w}, workspace, ${w}") workspaces)
         ++ (map (w: "$mod_SHIFT, ${w}, movetoworkspace, ${w}") workspaces);
