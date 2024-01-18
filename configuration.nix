@@ -91,7 +91,12 @@
     wget
   ];
 
-  programs.hyprland.enable = true;
+  programs.hyprland = {
+    enable = true;
+    xwayland = {
+      enable = false;
+    };
+  };
   # Hint to Electron apps to run native Wayland
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
@@ -117,7 +122,6 @@
     enable = true;
     extraPortals = with pkgs; [
       xdg-desktop-portal-wlr
-      xdg-desktop-portal-hyprland
       xdg-desktop-portal-gtk
     ];
     wlr.enable = true;
