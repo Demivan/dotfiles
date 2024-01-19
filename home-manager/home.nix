@@ -25,7 +25,6 @@ in {
   # environment.
   home.packages = with pkgs; [
     # Looks
-    waybar
     (nerdfonts.override {fonts = [vars.font.name];})
 
     # General
@@ -110,6 +109,14 @@ in {
   programs.home-manager.enable = true;
 
   # Hyprland
+  programs.waybar = {
+    enable = true;
+
+    package = pkgs.waybar.override {
+      swaySupport = false;
+    };
+  };
+
   programs.wofi = {
     enable = true;
     settings = {
