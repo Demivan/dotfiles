@@ -12,5 +12,6 @@
     text = "#cdd6f4";
 
     blue = "#89b4fa";
+    blueHypr = "rgb(89b4fa)";
   };
 }

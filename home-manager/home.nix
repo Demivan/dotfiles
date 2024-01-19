@@ -204,10 +204,7 @@ in {
         resize_on_border = true;
         extend_border_grab_area = 15;
 
-        # col.active_border =
-        # col.inactive_border =
-        # col.group_border =
-        # col.group_border_active =
+        "col.active_border" = vars.colors.blueHypr;
       };
 
       misc = {
