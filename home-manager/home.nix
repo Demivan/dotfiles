@@ -41,21 +41,12 @@ in {
     # Development
     git
     p7zip
-    bash
-    nodejs_21
-    corepack_21 # pnpm
-    dotnet-sdk_8
     jetbrains-toolbox
 
     # NixOS
     nil
 
     remmina
-
-    opentofu
-    ansible
-    nomad
-    vault
 
     # Communication
     slack
@@ -301,6 +292,11 @@ in {
         1; # turn on fish directory truncation
       directory.truncation_length = 2; # number of directories not to truncate
     };
+  };
+
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
   };
 
   # Codium
