@@ -28,7 +28,6 @@ in {
     (nerdfonts.override {fonts = [vars.font.name];})
 
     # General
-    firefox-devedition
     (lib.throwIf (lib.strings.versionOlder "1.5.3" obsidian.version) "Obsidian no longer requires EOL Electron" (
       obsidian.override {
         electron = electron_25.overrideAttrs (_: {
@@ -101,6 +100,14 @@ in {
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  programs.firefox = {
+    enable = true;
+    package = pkgs.floorp;
+
+    profiles.demivan = {
+    };
+  };
 
   # Hyprland
   programs.waybar = {
