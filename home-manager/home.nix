@@ -42,6 +42,9 @@ in {
     git
     p7zip
     jetbrains-toolbox
+    nodejs_21
+    corepack_21 # pnpm
+    dotnet-sdk_8
 
     # NixOS
     nil
