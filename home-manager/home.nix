@@ -26,6 +26,7 @@ in {
   home.packages = with pkgs; [
     # Looks
     (nerdfonts.override {fonts = [vars.font.name];})
+    hyprshot
 
     # General
     (lib.throwIf (lib.strings.versionOlder "1.5.3" obsidian.version) "Obsidian no longer requires EOL Electron" (
