@@ -43,7 +43,9 @@ in {
     jetbrains-toolbox
     nodejs_21
     corepack_21 # pnpm
-    dotnet-sdk_8
+    # dotnet-sdk_8
+    dotnet-sdk_6
+    opentofu
 
     # NixOS
     nil
@@ -56,6 +58,9 @@ in {
 
     # Gaming
     bottles
+
+    # Media
+    playerctl
   ];
 
   fonts.fontconfig.enable = true;
@@ -112,10 +117,242 @@ in {
   # Hyprland
   programs.waybar = {
     enable = true;
+    systemd.enable = true;
 
     package = pkgs.waybar.override {
       swaySupport = false;
     };
+
+    settings = {
+      mainBar = {
+        layer = "top"; # Waybar at top layer
+        position = "top"; # Waybar position (top|bottom|left|right)
+        "modules-left" = [
+          "hyprland/workspaces"
+          "hyprland/window"
+        ];
+        "modules-center" = [
+          "custom/music"
+        ];
+        "modules-right" = [
+          "pulseaudio"
+          "battery"
+          "clock"
+          "tray"
+          "custom/lock"
+          "custom/power"
+        ];
+        "hyprland/workspaces" = {
+          "disable-scroll" = true;
+          "sort-by-name" = true;
+          "format" = " {icon} ";
+          "format-icons" = {
+            default = "";
+          };
+        };
+        "hyprland/window" = {
+          "format" = " {}";
+          "separate-outputs" = true;
+        };
+        tray = {
+          "icon-size" = 21;
+          spacing = 10;
+        };
+        "custom/music" = {
+          format = " {}";
+          escape = true;
+          interval = 5;
+          tooltip = false;
+          exec = "${pkgs.playerctl}/bin/playerctl metadata --format='{{ title }}'";
+          "on-click" = "${pkgs.playerctl}/bin/playerctl play-pause";
+          "max-length" = 50;
+        };
+        clock = {
+          timezone = "Europe/Kyiv";
+          "tooltip-format" = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
+          "format-alt" = "󰃭 {:%d/%m/%Y}";
+          format = " {:%H:%M}";
+        };
+        battery = {
+          states = {
+            warning = 30;
+            critical = 15;
+          };
+          format = "{icon}";
+          "format-charging" = "󰂄";
+          "format-plugged" = "󰂄";
+          "format-alt" = "{icon}";
+          "format-icons" = [
+            "󰂃"
+            "󰁺"
+            "󰁻"
+            "󰁼"
+            "󰁽"
+            "󰁾"
+            "󰁾"
+            "󰁿"
+            "󰂀"
+            "󰂁"
+            "󰂂"
+            "󰁹"
+          ];
+        };
+        pulseaudio = {
+          format = "{icon}  {volume}%";
+          "format-muted" = "";
+          "format-icons" = {
+            default = [
+              ""
+              ""
+              ""
+            ];
+          };
+          "on-click" = "pavucontrol";
+        };
+        "custom/lock" = {
+          tooltip = false;
+          "on-click" = "sh -c '(sleep 0.5s; swaylock --grace 0)' & disown";
+          format = "";
+        };
+        "custom/power" = {
+          tooltip = false;
+          "on-click" = "wlogout &";
+          format = "󰐥";
+        };
+      };
+    };
+
+    style = ''
+      /*
+      *
+      * Catppuccin Mocha palette
+      * Maintainer: rubyowo
+      *
+      */
+
+      @define-color base   #1e1e2e;
+      @define-color mantle #181825;
+      @define-color crust  #11111b;
+
+      @define-color text     #cdd6f4;
+      @define-color subtext0 #a6adc8;
+      @define-color subtext1 #bac2de;
+
+      @define-color surface0 #313244;
+      @define-color surface1 #45475a;
+      @define-color surface2 #585b70;
+
+      @define-color overlay0 #6c7086;
+      @define-color overlay1 #7f849c;
+      @define-color overlay2 #9399b2;
+
+      @define-color blue      #89b4fa;
+      @define-color lavender  #b4befe;
+      @define-color sapphire  #74c7ec;
+      @define-color sky       #89dceb;
+      @define-color teal      #94e2d5;
+      @define-color green     #a6e3a1;
+      @define-color yellow    #f9e2af;
+      @define-color peach     #fab387;
+      @define-color maroon    #eba0ac;
+      @define-color red       #f38ba8;
+      @define-color mauve     #cba6f7;
+      @define-color pink      #f5c2e7;
+      @define-color flamingo  #f2cdcd;
+      @define-color rosewater #f5e0dc;
+
+      * {
+        font-family: ${vars.font.family};
+        font-size: 16px;
+        min-height: 0;
+      }
+
+      #waybar {
+        background: @base;
+        color: @text;
+        margin: 5px 5px;
+      }
+
+      #workspaces {
+        border-radius: 1rem;
+        margin: 5px;
+        background-color: @surface0;
+        margin-left: 1rem;
+      }
+
+      #workspaces button {
+        color: @lavender;
+        border-radius: 1rem;
+        padding: 0.4rem;
+      }
+
+      #workspaces button.active {
+        color: @sky;
+        border-radius: 1rem;
+      }
+
+      #workspaces button:hover {
+        color: @sapphire;
+        border-radius: 1rem;
+      }
+
+      #custom-music,
+      #tray,
+      #clock,
+      #battery,
+      #pulseaudio,
+      #custom-lock,
+      #custom-power {
+        background-color: @surface0;
+        padding: 0.5rem 1rem;
+        margin: 5px 0;
+      }
+
+      #clock {
+        color: @blue;
+        border-radius: 0px 1rem 1rem 0px;
+        margin-right: 1rem;
+      }
+
+      #battery {
+        color: @green;
+      }
+
+      #battery.charging {
+        color: @green;
+      }
+
+      #battery.warning:not(.charging) {
+        color: @red;
+      }
+
+      #pulseaudio {
+        color: @maroon;
+        border-radius: 1rem 0px 0px 1rem;
+        margin-left: 1rem;
+      }
+
+      #custom-music {
+        color: @mauve;
+        border-radius: 1rem;
+      }
+
+      #custom-lock {
+        border-radius: 1rem 0px 0px 1rem;
+        color: @lavender;
+      }
+
+      #custom-power {
+        margin-right: 1rem;
+        border-radius: 0px 1rem 1rem 0px;
+        color: @red;
+      }
+
+      #tray {
+        margin-right: 1rem;
+        border-radius: 1rem;
+      }
+    '';
   };
 
   programs.wofi = {
@@ -331,6 +568,11 @@ in {
       "nix.enableLanguageServer" = true;
       "nix.serverPath" = "nil";
     };
+  };
+
+  # Media
+  services.playerctld = {
+    enable = true;
   };
 
   # Theme
