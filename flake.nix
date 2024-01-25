@@ -37,7 +37,7 @@
 
       extraSpecialArgs = inputs;
 
-      modules = [ ./home-manager/home.nix ];
+      modules = [./home-manager/home.nix];
     };
 
     formatter.${system} = pkgs.alejandra;

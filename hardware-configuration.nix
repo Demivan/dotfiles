@@ -12,9 +12,9 @@
 
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod"];
   boot.initrd.kernelModules = [];
-  boot.kernelPackages = pkgs.linuxPackages_cachyos-sched-ext;
+  boot.kernelPackages = pkgs.linuxPackages_cachyos;
   boot.kernelModules = ["kvm-amd"];
-  environment.systemPackages =  [ pkgs.scx ];
+  environment.systemPackages = [pkgs.scx];
   boot.extraModulePackages = [];
 
   fileSystems."/" = {
