@@ -430,12 +430,11 @@ in {
 
   wayland.windowManager.hyprland = let
     workspaces = map toString (lib.lists.range 1 8);
+    directions = [{ dir = "left"; char = "l"; } { dir = "right"; char = "r"; } { dir = "up"; char = "u"; } { dir = "down"; char = "d"; }];
   in {
     enable = true;
 
     settings = {
-      "$mod" = "SUPER";
-
       general = {
         border_size = 3;
         no_border_on_floating = false;
@@ -464,6 +463,8 @@ in {
         "col.shadow_inactive" = vars.colors.base;
       };
 
+      "$mod" = "SUPER";
+
       bind =
         [
           # Apps
@@ -480,7 +481,9 @@ in {
           "$mod, F, fullscreen, 0"
         ]
         ++ (map (w: "$mod, ${w}, workspace, ${w}") workspaces)
-        ++ (map (w: "$mod_SHIFT, ${w}, movetoworkspace, ${w}") workspaces);
+        ++ (map (w: "$mod_SHIFT, ${w}, movetoworkspace, ${w}") workspaces)
+        ++ (map (dir: "$mod, ${dir.dir}, movefocus, ${dir.char}") directions)
+        ++ (map (dir: "$mod_SHIFT, ${dir.dir}, movewindow, ${dir.char}") directions);
 
       bindm = [
         "$mod, mouse:272, movewindow"
