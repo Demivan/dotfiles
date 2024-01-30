@@ -1,16 +1,15 @@
 {
-  config,
   pkgs,
-  osConfig,
   lib,
+  username,
   ...
 }: let
   vars = import ./vars.nix;
 in {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = "demivan";
-  home.homeDirectory = "/home/demivan";
+  home.username = username;
+  home.homeDirectory = "/home/${username}";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -47,6 +46,8 @@ in {
     # dotnet-sdk_8
     dotnet-sdk_6
     opentofu
+    nomad
+    ansible
 
     # NixOS
     nil
@@ -111,7 +112,7 @@ in {
     enable = true;
     package = pkgs.floorp;
 
-    profiles.demivan = {
+    profiles.${username} = {
     };
   };
 

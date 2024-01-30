@@ -18,6 +18,7 @@
     ...
   }: let
     system = "x86_64-linux";
+    username = "demivan";
 
     pkgs = import nixpkgs {
       inherit system;
@@ -30,12 +31,18 @@
         ./configuration.nix
         chaotic.nixosModules.default
       ];
+
+      specialArgs = {
+        inherit username;
+      };
     };
 
-    homeConfigurations."demivan" = home-manager.lib.homeManagerConfiguration {
+    homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
-
-      extraSpecialArgs = inputs;
+      extraSpecialArgs = {
+        inherit inputs;
+        inherit username;
+      };
 
       modules = [./home-manager/home.nix];
     };
