@@ -430,7 +430,24 @@ in {
 
   wayland.windowManager.hyprland = let
     workspaces = map toString (lib.lists.range 1 8);
-    directions = [{ dir = "left"; char = "l"; } { dir = "right"; char = "r"; } { dir = "up"; char = "u"; } { dir = "down"; char = "d"; }];
+    directions = [
+      {
+        dir = "left";
+        char = "l";
+      }
+      {
+        dir = "right";
+        char = "r";
+      }
+      {
+        dir = "up";
+        char = "u";
+      }
+      {
+        dir = "down";
+        char = "d";
+      }
+    ];
   in {
     enable = true;
 
