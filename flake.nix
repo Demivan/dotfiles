@@ -3,18 +3,21 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nur.url = "github:nix-community/NUR";
+    
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
   };
 
   outputs = inputs @ {
     self,
     nixpkgs,
-    chaotic,
     home-manager,
+    nur,
+    chaotic,
     ...
   }: let
     system = "x86_64-linux";
@@ -29,6 +32,7 @@
     nixosConfigurations."ivan-pc" = nixpkgs.lib.nixosSystem {
       modules = [
         ./configuration.nix
+        nur.nixosModules.nur
         chaotic.nixosModules.default
       ];
 
@@ -40,6 +44,7 @@
     homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
       extraSpecialArgs = {
+        inherit system;
         inherit inputs;
         inherit username;
       };
