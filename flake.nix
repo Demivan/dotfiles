@@ -7,16 +7,15 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nur.url = "github:nix-community/NUR";
     
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    chaotic.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs @ {
     self,
     nixpkgs,
     home-manager,
-    nur,
     chaotic,
     ...
   }: let
@@ -32,7 +31,6 @@
     nixosConfigurations."ivan-pc" = nixpkgs.lib.nixosSystem {
       modules = [
         ./configuration.nix
-        nur.nixosModules.nur
         chaotic.nixosModules.default
       ];
 

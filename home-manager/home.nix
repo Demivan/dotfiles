@@ -1,6 +1,8 @@
 {
   pkgs,
   lib,
+  system,
+  inputs,
   username,
   ...
 }: let
@@ -19,6 +21,31 @@ in {
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
   home.stateVersion = "23.11"; # Please read the comment before changing.
+
+  # Overlays
+  nixpkgs.overlays = [
+    (final: prev: {
+      cataclysm-dda-git =
+        (prev
+          .cataclysm-dda-git
+          .override {
+            stdenv = prev.ccacheStdenv;
+          })
+        .overrideAttrs (old: {
+          version = "0.0.0";
+
+          src = prev.fetchFromGitHub {
+            owner = "CleverRaven";
+            repo = "Cataclysm-DDA";
+            rev = "eefe4204fe4cefd136b8ea86c53bf1e8a8bbe2b2";
+            sha256 = "sha256-3eRAZqJDcmwNwEY0sRVmrA4hiN7d5ml7bhFtW0Sdbp8=";
+          };
+
+          patches = [
+          ];
+        });
+    })
+  ];
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -60,6 +87,7 @@ in {
 
     # Gaming
     bottles
+    cataclysm-dda-git
 
     # Media
     playerctl
