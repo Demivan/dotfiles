@@ -55,7 +55,6 @@
   };
 
   nixpkgs.config.allowUnfree = true; # Slack, Steam, etc.
-  chaotic.mesa-git.enable = true;
   programs.steam = {
     enable = true;
     package = with pkgs; steam.override {extraPkgs = pkgs: [attr];};
