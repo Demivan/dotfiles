@@ -63,6 +63,7 @@ in {
         });
       }
     ))
+    cinnamon.nemo-with-extensions
 
     # Development
     git
@@ -610,6 +611,11 @@ in {
         tweaks = ["rimless"];
         variant = "mocha";
       };
+    };
+
+    iconTheme = {
+      package = pkgs.fluent-icon-theme;
+      name = "Fluent";
     };
 
     cursorTheme = {
