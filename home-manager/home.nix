@@ -174,7 +174,13 @@ in {
         ];
         "hyprland/workspaces" = {
           "disable-scroll" = true;
-          "sort-by-name" = true;
+          "sort-by-number" = true;
+          "persistent-workspaces" = {
+            "1" = [];
+            "2" = [];
+            "3" = [];
+            "4" = [];
+          };
           "format" = " {icon} ";
           "format-icons" = {
             default = "";
@@ -237,60 +243,22 @@ in {
               ""
             ];
           };
-          "on-click" = "pavucontrol";
+          "on-click" = "${pkgs.pavucontrol}/bin/pavucontrol";
         };
         "custom/lock" = {
           tooltip = false;
-          "on-click" = "sh -c '(sleep 0.5s; swaylock --grace 0)' & disown";
+          "on-click" = "sh -c '(sleep 0.5s; ${pkgs.swaylock}/bin/swaylock)' & disown";
           format = "";
         };
         "custom/power" = {
           tooltip = false;
-          "on-click" = "wlogout &";
+          "on-click" = "${pkgs.wlogout}/bin/wlogout &";
           format = "󰐥";
         };
       };
     };
 
     style = ''
-      /*
-      *
-      * Catppuccin Mocha palette
-      * Maintainer: rubyowo
-      *
-      */
-
-      @define-color base   #1e1e2e;
-      @define-color mantle #181825;
-      @define-color crust  #11111b;
-
-      @define-color text     #cdd6f4;
-      @define-color subtext0 #a6adc8;
-      @define-color subtext1 #bac2de;
-
-      @define-color surface0 #313244;
-      @define-color surface1 #45475a;
-      @define-color surface2 #585b70;
-
-      @define-color overlay0 #6c7086;
-      @define-color overlay1 #7f849c;
-      @define-color overlay2 #9399b2;
-
-      @define-color blue      #89b4fa;
-      @define-color lavender  #b4befe;
-      @define-color sapphire  #74c7ec;
-      @define-color sky       #89dceb;
-      @define-color teal      #94e2d5;
-      @define-color green     #a6e3a1;
-      @define-color yellow    #f9e2af;
-      @define-color peach     #fab387;
-      @define-color maroon    #eba0ac;
-      @define-color red       #f38ba8;
-      @define-color mauve     #cba6f7;
-      @define-color pink      #f5c2e7;
-      @define-color flamingo  #f2cdcd;
-      @define-color rosewater #f5e0dc;
-
       * {
         font-family: ${vars.font.family};
         font-size: 16px;
@@ -298,32 +266,38 @@ in {
       }
 
       #waybar {
-        background: @base;
-        color: @text;
+        background: ${vars.colors.base};
+        color: ${vars.colors.text};
         margin: 5px 5px;
       }
 
       #workspaces {
         border-radius: 1rem;
         margin: 5px;
-        background-color: @surface0;
+        background-color: ${vars.colors.surface0};
         margin-left: 1rem;
       }
 
       #workspaces button {
-        color: @lavender;
+        color: ${vars.colors.overlay1};
         border-radius: 1rem;
         padding: 0.4rem;
       }
 
+      #workspaces button.empty {
+        color: ${vars.colors.surface1};
+      }
+
       #workspaces button.active {
-        color: @sky;
-        border-radius: 1rem;
+        color: ${vars.colors.sky};
+      }
+
+      #workspaces button.urgent {
+        color: ${vars.colors.red};
       }
 
       #workspaces button:hover {
-        color: @sapphire;
-        border-radius: 1rem;
+        color: ${vars.colors.sapphire};
       }
 
       #custom-music,
@@ -333,49 +307,49 @@ in {
       #pulseaudio,
       #custom-lock,
       #custom-power {
-        background-color: @surface0;
+        background-color: ${vars.colors.surface0};
         padding: 0.5rem 1rem;
         margin: 5px 0;
       }
 
       #clock {
-        color: @blue;
+        color: ${vars.colors.blue};
         border-radius: 0px 1rem 1rem 0px;
         margin-right: 1rem;
       }
 
       #battery {
-        color: @green;
+        color: ${vars.colors.green};
       }
 
       #battery.charging {
-        color: @green;
+        color: ${vars.colors.green};
       }
 
       #battery.warning:not(.charging) {
-        color: @red;
+        color: ${vars.colors.red};
       }
 
       #pulseaudio {
-        color: @maroon;
+        color: ${vars.colors.maroon};
         border-radius: 1rem 0px 0px 1rem;
         margin-left: 1rem;
       }
 
       #custom-music {
-        color: @mauve;
+        color: ${vars.colors.mauve};
         border-radius: 1rem;
       }
 
       #custom-lock {
         border-radius: 1rem 0px 0px 1rem;
-        color: @lavender;
+        color: ${vars.colors.lavender};
       }
 
       #custom-power {
         margin-right: 1rem;
         border-radius: 0px 1rem 1rem 0px;
-        color: @red;
+        color: ${vars.colors.red};
       }
 
       #tray {
