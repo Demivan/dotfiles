@@ -73,9 +73,6 @@ in {
     corepack_21 # pnpm
     # dotnet-sdk_8
     dotnet-sdk_6
-    opentofu
-    nomad
-    ansible
 
     # NixOS
     nil
