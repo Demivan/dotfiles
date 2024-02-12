@@ -88,6 +88,7 @@ in {
 
     # Gaming
     bottles
+    starsector
     cataclysm-dda-git
 
     # Media
