@@ -81,6 +81,7 @@ in {
 
     # Communication
     slack
+    discord
     telegram-desktop
 
     # Gaming
