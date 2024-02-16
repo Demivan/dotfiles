@@ -541,6 +541,11 @@ in {
   # Shell
   programs.fish = {enable = true;};
 
+  programs.zoxide = {
+    enable = true;
+    enableFishIntegration = true;
+  };
+
   programs.kitty = {
     enable = true;
     font = {
