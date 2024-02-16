@@ -7,14 +7,19 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    sddm-sugar-catppuccin = {
+      url = "github:TiagoDamascena/sddm-sugar-catppuccin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs @ {
+  outputs = {
     self,
     nixpkgs,
     home-manager,
     ...
-  }: let
+  } @ inputs: let
     system = "x86_64-linux";
     username = "demivan";
 
@@ -25,13 +30,15 @@
     };
   in {
     nixosConfigurations."ivan-pc" = nixpkgs.lib.nixosSystem {
+      specialArgs = {
+        inherit system;
+        inherit inputs;
+        inherit username;
+      };
+
       modules = [
         ./configuration.nix
       ];
-
-      specialArgs = {
-        inherit username;
-      };
     };
 
     homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {

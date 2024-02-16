@@ -2,6 +2,8 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 {
+  system,
+  inputs,
   username,
   pkgs,
   ...
@@ -100,6 +102,8 @@
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     git
     wget
+    libsForQt5.qt5.qtquickcontrols2
+    libsForQt5.qt5.qtgraphicaleffects
   ];
 
   programs.hyprland = {
@@ -112,22 +116,13 @@
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   # List services that you want to enable:
-  services.greetd = {
+  # TODO: There is no need for X-server
+  services.xserver.enable = true;
+  services.xserver.libinput.enable = true;
+  services.xserver.displayManager.sddm = {
     enable = true;
-    settings = {
-      default_session.command = ''
-        ${pkgs.greetd.tuigreet}/bin/tuigreet \
-          --time \
-          --asterisks \
-          --user-menu \
-          --cmd Hyprland
-      '';
-    };
+    theme = "${inputs.sddm-sugar-catppuccin.packages.${system}.default}/share/sddm/themes/sugar-catppuccin/";
   };
-
-  environment.etc."greetd/environments".text = ''
-    Hyprland
-  '';
 
   xdg.portal = {
     enable = true;
