@@ -7,11 +7,12 @@
   inputs,
   username,
   ...
-}: let
-  vars = import ./vars.nix;
-in {
+}: {
   imports = [
     nix-colors.homeManagerModules.default
+    ./programs/hyprland.nix
+    ./programs/waybar.nix
+    ./programs/wofi.nix
   ];
 
   colorScheme = nix-colors.colorSchemes.catppuccin-mocha;
@@ -59,7 +60,7 @@ in {
   # environment.
   home.packages = with pkgs; [
     # Looks
-    (nerdfonts.override {fonts = [vars.font.name];})
+    (nerdfonts.override {fonts = [config.font.name];})
     hyprshot
 
     # General
@@ -113,7 +114,7 @@ in {
         <!-- Default fonts -->
         <alias binding="same">
           <family>monospace</family>
-          <prefer>${vars.font.family}</prefer>
+          <prefer>${config.font.family}</prefer>
         </alias>
       </fontconfig>
     '';
@@ -152,395 +153,6 @@ in {
     };
   };
 
-  # Hyprland
-  programs.waybar = {
-    enable = true;
-    systemd.enable = true;
-
-    package = pkgs.waybar.override {
-      swaySupport = false;
-    };
-
-    settings = {
-      mainBar = {
-        layer = "top"; # Waybar at top layer
-        position = "top"; # Waybar position (top|bottom|left|right)
-        "modules-left" = [
-          "hyprland/workspaces"
-          "hyprland/window"
-        ];
-        "modules-center" = [
-          "custom/music"
-        ];
-        "modules-right" = [
-          "pulseaudio"
-          "battery"
-          "clock"
-          "tray"
-          "custom/lock"
-          "custom/power"
-        ];
-        "hyprland/workspaces" = {
-          "disable-scroll" = true;
-          "sort-by-number" = true;
-          "persistent-workspaces" = {
-            "1" = [];
-            "2" = [];
-            "3" = [];
-            "4" = [];
-          };
-          "format" = " {icon} ";
-          "format-icons" = {
-            default = "";
-          };
-        };
-        "hyprland/window" = {
-          "format" = " {}";
-          "separate-outputs" = true;
-        };
-        tray = {
-          "icon-size" = 21;
-          spacing = 10;
-        };
-        "custom/music" = {
-          format = " {}";
-          escape = true;
-          interval = 5;
-          tooltip = false;
-          exec = "${pkgs.playerctl}/bin/playerctl metadata --format='{{ title }}'";
-          "on-click" = "${pkgs.playerctl}/bin/playerctl play-pause";
-          "max-length" = 50;
-        };
-        clock = {
-          timezone = "Europe/Kyiv";
-          "tooltip-format" = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-          "format-alt" = "󰃭 {:%d/%m/%Y}";
-          format = " {:%H:%M}";
-        };
-        battery = {
-          states = {
-            warning = 30;
-            critical = 15;
-          };
-          format = "{icon}";
-          "format-charging" = "󰂄";
-          "format-plugged" = "󰂄";
-          "format-alt" = "{icon}";
-          "format-icons" = [
-            "󰂃"
-            "󰁺"
-            "󰁻"
-            "󰁼"
-            "󰁽"
-            "󰁾"
-            "󰁾"
-            "󰁿"
-            "󰂀"
-            "󰂁"
-            "󰂂"
-            "󰁹"
-          ];
-        };
-        pulseaudio = {
-          format = "{icon}  {volume}%";
-          "format-muted" = "";
-          "format-icons" = {
-            default = [
-              ""
-              ""
-              ""
-            ];
-          };
-          "on-click" = "${pkgs.pavucontrol}/bin/pavucontrol";
-        };
-        "custom/lock" = {
-          tooltip = false;
-          "on-click" = "sh -c '(sleep 0.5s; ${pkgs.swaylock}/bin/swaylock)' & disown";
-          format = "";
-        };
-        "custom/power" = {
-          tooltip = false;
-          "on-click" = "${pkgs.wlogout}/bin/wlogout &";
-          format = "󰐥";
-        };
-      };
-    };
-
-    style = ''
-      * {
-        font-family: ${vars.font.family};
-        font-size: 16px;
-        min-height: 0;
-      }
-
-      #waybar {
-        background-color: #${config.colorScheme.palette.base00};
-        color: #${config.colorScheme.palette.base05};
-        margin: 5px 5px;
-      }
-
-      #workspaces {
-        border-radius: 1rem;
-        margin: 5px;
-        background-color: #${config.colorScheme.palette.base02};
-        margin-left: 1rem;
-      }
-
-      #workspaces button {
-        color: rgba(${(nix-colors.lib.conversions.hexToRGBString ", " config.colorScheme.palette.base0D)}, 0.4);
-        border-radius: 1rem;
-        padding: 0.4rem;
-      }
-
-      #workspaces button.empty {
-        color: #${config.colorScheme.palette.base03};
-      }
-
-      #workspaces button.active {
-        color: #${config.colorScheme.palette.base0D};
-      }
-
-      #workspaces button.urgent {
-        color: #${config.colorScheme.palette.base08};
-      }
-
-      #workspaces button:hover {
-        color: #${config.colorScheme.palette.base07};
-      }
-
-      #custom-music,
-      #tray,
-      #clock,
-      #battery,
-      #pulseaudio,
-      #custom-lock,
-      #custom-power {
-        background-color: #${config.colorScheme.palette.base02};
-        padding: 0.5rem 1rem;
-        margin: 5px 0;
-      }
-
-      #clock {
-        color: #${config.colorScheme.palette.base0D};
-        border-radius: 0px 1rem 1rem 0px;
-        margin-right: 1rem;
-      }
-
-      #battery {
-        color: #${config.colorScheme.palette.base0B};
-      }
-
-      #battery.charging {
-        color: #${config.colorScheme.palette.base0B};
-      }
-
-      #battery.warning:not(.charging) {
-        color: #${config.colorScheme.palette.base08};
-      }
-
-      #pulseaudio {
-        color: #${config.colorScheme.palette.base0E};
-        border-radius: 1rem 0px 0px 1rem;
-        margin-left: 1rem;
-      }
-
-      #custom-music {
-        color: #${config.colorScheme.palette.base0E};
-        border-radius: 1rem;
-      }
-
-      #custom-lock {
-        border-radius: 1rem 0px 0px 1rem;
-        color: #${config.colorScheme.palette.base07};
-      }
-
-      #custom-power {
-        margin-right: 1rem;
-        border-radius: 0px 1rem 1rem 0px;
-        color: #${config.colorScheme.palette.base08};
-      }
-
-      #tray {
-        margin-right: 1rem;
-        border-radius: 1rem;
-      }
-    '';
-  };
-
-  programs.wofi = {
-    enable = true;
-    settings = {
-      # Geometry
-      width = "600px";
-      height = "500px";
-
-      # Style
-      hide_scroll = true;
-      normal_window = true;
-
-      # Images
-      allow_markup = true;
-      allow_images = true;
-      image_size = 24;
-
-      # Keys
-      key_expand = "Tab";
-      key_exit = "Escape";
-    };
-
-    style = ''
-      * {
-        font-family: "${vars.font.family}", sans-serif;
-        font-size: 14px;
-      }
-
-      #window {
-      	background-color: #${config.colorScheme.palette.base00};
-      	color: #${config.colorScheme.palette.base05};
-      }
-
-      #outer-box {
-      	padding: 10px;
-      }
-
-      #input {
-      	padding: 4px 12px;
-      }
-
-      #scroll {
-      	margin-top: 10px;
-      }
-
-      #img {
-      	padding-right: 8px;
-      }
-
-      #text {
-      	color: #${config.colorScheme.palette.base05};
-      }
-
-      #text:selected {
-      	color: #${config.colorScheme.palette.base00};
-      }
-
-      #entry {
-      	padding: 6px;
-      }
-
-      #entry:selected {
-      	background-color: #${config.colorScheme.palette.base0D};
-      	color: #${config.colorScheme.palette.base00};
-      }
-
-      #input, #entry:selected {
-      	border-radius: 12px;
-      }
-    '';
-  };
-
-  wayland.windowManager.hyprland = let
-    workspaces = map toString (lib.lists.range 1 8);
-    directions = [
-      {
-        dir = "left";
-        char = "l";
-      }
-      {
-        dir = "right";
-        char = "r";
-      }
-      {
-        dir = "up";
-        char = "u";
-      }
-      {
-        dir = "down";
-        char = "d";
-      }
-    ];
-  in {
-    enable = true;
-
-    settings = {
-      general = {
-        border_size = 3;
-        no_border_on_floating = false;
-        gaps_in = 6;
-        gaps_out = 12;
-        resize_on_border = true;
-        extend_border_grab_area = 15;
-
-        "col.active_border" = "rgb(${config.colorScheme.palette.base0D})";
-      };
-
-      misc = {
-        vrr = 1;
-        focus_on_activate = true;
-      };
-
-      decoration = {
-        rounding = 12;
-        "blur:enabled" = false;
-        "blur:xray" = false;
-        drop_shadow = true;
-        shadow_range = 25;
-        shadow_render_power = 15;
-        shadow_ignore_window = false;
-        "col.shadow" = config.colorScheme.palette.base00;
-        "col.shadow_inactive" = config.colorScheme.palette.base00;
-      };
-
-      "$mod" = "SUPER";
-
-      bind =
-        [
-          # Apps
-          "$mod, Return, exec, kitty"
-
-          "$mod, Q, killactive"
-
-          # Wofi
-          "$mod, D, exec, wofi --show drun --prompt 'Search...'"
-
-          # Switch between windows
-          "$mod, Tab, cyclenext"
-          "$mod, Tab, bringactivetotop"
-          "$mod, F, fullscreen, 0"
-        ]
-        ++ (map (w: "$mod, ${w}, workspace, ${w}") workspaces)
-        ++ (map (w: "$mod_SHIFT, ${w}, movetoworkspace, ${w}") workspaces)
-        ++ (map (dir: "$mod, ${dir.dir}, movefocus, ${dir.char}") directions)
-        ++ (map (dir: "$mod_SHIFT, ${dir.dir}, movewindow, ${dir.char}") directions);
-
-      bindm = [
-        "$mod, mouse:272, movewindow"
-        "$mod, mouse:273, resizewindow"
-      ];
-
-      animations = {
-        enabled = true;
-        animation = [
-          "windowsIn,1,5,default,popin 0%"
-          "windowsOut,1,5,default,popin"
-          "windowsMove,1,5,default,slide"
-          "fadeIn,1,8,default"
-          "fadeOut,1,8,default"
-          "fadeSwitch,1,8,default"
-          "fadeShadow,1,8,default"
-          "fadeDim,1,8,default"
-          "border,1,10,default"
-          "borderangle,1,10,default"
-          "workspaces,1,3,default,slide"
-          "specialWorkspace,1,5,default,fade"
-        ];
-      };
-    };
-
-    extraConfig = ''
-      exec-once=hyprctl setcursor Bibata-Modern-Ice 22
-    '';
-  };
-
   # UI
   services.mako = {
     enable = true;
@@ -558,7 +170,7 @@ in {
   programs.kitty = {
     enable = true;
     font = {
-      name = vars.font.family;
+      name = config.font.family;
       size = 12;
     };
     theme = "Catppuccin-Mocha";
@@ -597,7 +209,7 @@ in {
 
       "workbench.colorTheme" = "Catppuccin Mocha";
 
-      "editor.fontFamily" = vars.font.family;
+      "editor.fontFamily" = config.font.family;
       "editor.fontSize" = 16;
       "editor.fontLigatures" = true;
       "terminal.integrated.fontSize" = 16;

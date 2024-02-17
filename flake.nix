@@ -30,6 +30,18 @@
 
       config.allowUnfree = true;
     };
+
+    extraOptions = {lib, ...}: {
+      options = {
+        font = pkgs.lib.mkOption {
+          description = "Font config";
+          default = {
+            name = "JetBrainsMono";
+            family = "JetBrainsMono Nerd Font";
+          };
+        };
+      };
+    };
   in {
     nixosConfigurations."ivan-pc" = nixpkgs.lib.nixosSystem {
       specialArgs = {
@@ -39,6 +51,7 @@
       };
 
       modules = [
+        extraOptions
         ./configuration.nix
       ];
     };
@@ -52,7 +65,10 @@
         inherit nix-colors;
       };
 
-      modules = [./home-manager/home.nix];
+      modules = [
+        extraOptions
+        ./home-manager/home.nix
+      ];
     };
 
     formatter.${system} = pkgs.alejandra;
