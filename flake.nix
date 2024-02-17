@@ -7,6 +7,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-colors.url = "github:misterio77/nix-colors";
 
     sddm-sugar-catppuccin = {
       url = "github:TiagoDamascena/sddm-sugar-catppuccin";
@@ -18,6 +19,7 @@
     self,
     nixpkgs,
     home-manager,
+    nix-colors,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -47,6 +49,7 @@
         inherit system;
         inherit inputs;
         inherit username;
+        inherit nix-colors;
       };
 
       modules = [./home-manager/home.nix];

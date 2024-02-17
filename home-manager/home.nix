@@ -1,6 +1,8 @@
 {
   pkgs,
   lib,
+  config,
+  nix-colors,
   system,
   inputs,
   username,
@@ -8,6 +10,12 @@
 }: let
   vars = import ./vars.nix;
 in {
+  imports = [
+    nix-colors.homeManagerModules.default
+  ];
+
+  colorScheme = nix-colors.colorSchemes.catppuccin-mocha;
+
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = username;
@@ -266,38 +274,38 @@ in {
       }
 
       #waybar {
-        background: ${vars.colors.base};
-        color: ${vars.colors.text};
+        background-color: #${config.colorScheme.palette.base00};
+        color: #${config.colorScheme.palette.base05};
         margin: 5px 5px;
       }
 
       #workspaces {
         border-radius: 1rem;
         margin: 5px;
-        background-color: ${vars.colors.surface0};
+        background-color: #${config.colorScheme.palette.base02};
         margin-left: 1rem;
       }
 
       #workspaces button {
-        color: ${vars.colors.overlay1};
+        color: rgba(${(nix-colors.lib.conversions.hexToRGBString ", " config.colorScheme.palette.base0D)}, 0.4);
         border-radius: 1rem;
         padding: 0.4rem;
       }
 
       #workspaces button.empty {
-        color: ${vars.colors.surface1};
+        color: #${config.colorScheme.palette.base03};
       }
 
       #workspaces button.active {
-        color: ${vars.colors.sky};
+        color: #${config.colorScheme.palette.base0D};
       }
 
       #workspaces button.urgent {
-        color: ${vars.colors.red};
+        color: #${config.colorScheme.palette.base08};
       }
 
       #workspaces button:hover {
-        color: ${vars.colors.sapphire};
+        color: #${config.colorScheme.palette.base07};
       }
 
       #custom-music,
@@ -307,49 +315,49 @@ in {
       #pulseaudio,
       #custom-lock,
       #custom-power {
-        background-color: ${vars.colors.surface0};
+        background-color: #${config.colorScheme.palette.base02};
         padding: 0.5rem 1rem;
         margin: 5px 0;
       }
 
       #clock {
-        color: ${vars.colors.blue};
+        color: #${config.colorScheme.palette.base0D};
         border-radius: 0px 1rem 1rem 0px;
         margin-right: 1rem;
       }
 
       #battery {
-        color: ${vars.colors.green};
+        color: #${config.colorScheme.palette.base0B};
       }
 
       #battery.charging {
-        color: ${vars.colors.green};
+        color: #${config.colorScheme.palette.base0B};
       }
 
       #battery.warning:not(.charging) {
-        color: ${vars.colors.red};
+        color: #${config.colorScheme.palette.base08};
       }
 
       #pulseaudio {
-        color: ${vars.colors.maroon};
+        color: #${config.colorScheme.palette.base0E};
         border-radius: 1rem 0px 0px 1rem;
         margin-left: 1rem;
       }
 
       #custom-music {
-        color: ${vars.colors.mauve};
+        color: #${config.colorScheme.palette.base0E};
         border-radius: 1rem;
       }
 
       #custom-lock {
         border-radius: 1rem 0px 0px 1rem;
-        color: ${vars.colors.lavender};
+        color: #${config.colorScheme.palette.base07};
       }
 
       #custom-power {
         margin-right: 1rem;
         border-radius: 0px 1rem 1rem 0px;
-        color: ${vars.colors.red};
+        color: #${config.colorScheme.palette.base08};
       }
 
       #tray {
@@ -387,8 +395,8 @@ in {
       }
 
       #window {
-      	background-color: ${vars.colors.base};
-      	color: ${vars.colors.text};
+      	background-color: #${config.colorScheme.palette.base00};
+      	color: #${config.colorScheme.palette.base05};
       }
 
       #outer-box {
@@ -408,11 +416,11 @@ in {
       }
 
       #text {
-      	color: ${vars.colors.text};
+      	color: #${config.colorScheme.palette.base05};
       }
 
       #text:selected {
-      	color: ${vars.colors.base};
+      	color: #${config.colorScheme.palette.base00};
       }
 
       #entry {
@@ -420,8 +428,8 @@ in {
       }
 
       #entry:selected {
-      	background-color: ${vars.colors.blue};
-      	color: ${vars.colors.base};
+      	background-color: #${config.colorScheme.palette.base0D};
+      	color: #${config.colorScheme.palette.base00};
       }
 
       #input, #entry:selected {
@@ -462,7 +470,7 @@ in {
         resize_on_border = true;
         extend_border_grab_area = 15;
 
-        "col.active_border" = vars.colors.blueHypr;
+        "col.active_border" = "rgb(${config.colorScheme.palette.base0D})";
       };
 
       misc = {
@@ -478,8 +486,8 @@ in {
         shadow_range = 25;
         shadow_render_power = 15;
         shadow_ignore_window = false;
-        "col.shadow" = vars.colors.base;
-        "col.shadow_inactive" = vars.colors.base;
+        "col.shadow" = config.colorScheme.palette.base00;
+        "col.shadow_inactive" = config.colorScheme.palette.base00;
       };
 
       "$mod" = "SUPER";
