@@ -80,8 +80,10 @@
     jetbrains-toolbox
     nodejs_21
     corepack_21 # pnpm
-    # dotnet-sdk_8
-    dotnet-sdk_6
+    (with dotnetCorePackages; combinePackages [
+      sdk_6_0
+      sdk_8_0
+    ])
 
     # NixOS
     nil
