@@ -80,10 +80,12 @@
     jetbrains-toolbox
     nodejs_21
     corepack_21 # pnpm
-    (with dotnetCorePackages; combinePackages [
-      sdk_6_0
-      sdk_8_0
-    ])
+    bun
+    (with dotnetCorePackages;
+      combinePackages [
+        sdk_6_0
+        sdk_8_0
+      ])
 
     # NixOS
     nil
@@ -200,7 +202,7 @@
   # Codium
   programs.vscode = {
     enable = true;
-    package = pkgs.vscodium;
+    package = pkgs.vscode;
 
     extensions = with pkgs.vscode-extensions; [
       catppuccin.catppuccin-vsc
