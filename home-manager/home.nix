@@ -46,8 +46,8 @@
           src = prev.fetchFromGitHub {
             owner = "CleverRaven";
             repo = "Cataclysm-DDA";
-            rev = "eefe4204fe4cefd136b8ea86c53bf1e8a8bbe2b2";
-            sha256 = "sha256-3eRAZqJDcmwNwEY0sRVmrA4hiN7d5ml7bhFtW0Sdbp8=";
+            rev = "d6b054c440617aa2385039fe03b3c0ddc25869a2";
+            sha256 = "sha256-O/NMmLEztcBCvQV1hbIqvqP5iO1n7oZfgeq9R9Jp0v0=";
           };
 
           patches = [
