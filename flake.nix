@@ -13,12 +13,17 @@
       url = "github:TiagoDamascena/sddm-sugar-catppuccin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixpkgs-mozilla = {
+      url = "github:mozilla/nixpkgs-mozilla";
+    };
   };
 
   outputs = {
     self,
     nixpkgs,
     home-manager,
+    nixpkgs-mozilla,
     nix-colors,
     ...
   } @ inputs: let
@@ -27,6 +32,10 @@
 
     pkgs = import nixpkgs {
       inherit system;
+
+      overlays = [
+        nixpkgs-mozilla.overlays.rust
+      ];
 
       config.allowUnfree = true;
     };
