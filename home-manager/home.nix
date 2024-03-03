@@ -89,6 +89,7 @@
     # Development
     git
     p7zip
+    neovide
     jetbrains-toolbox
     nodejs_21
     corepack_21 # pnpm
@@ -211,7 +212,7 @@
     nix-direnv.enable = true;
   };
 
-  # Codium
+  # Development
   programs.vscode = {
     enable = true;
     package = pkgs.vscode;
@@ -233,6 +234,37 @@
       "nix.enableLanguageServer" = true;
       "nix.serverPath" = "nil";
     };
+  };
+
+  programs.neovim = {
+    enable = true;
+
+    defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
+    vimdiffAlias = true;
+
+    extraPackages = with pkgs; [
+      ripgrep
+      fzf
+      fd
+    ];
+  };
+
+  xdg.configFile."nvim/lua" = {
+    source = config.lib.file.mkOutOfStoreSymlink ./programs/nvim/config/lua;
+  };
+
+  xdg.configFile."nvim/init.lua" = {
+    source = config.lib.file.mkOutOfStoreSymlink ./programs/nvim/config/init.lua;
+  };
+
+  xdg.configFile."nvim/.neoconf.json" = {
+    source = config.lib.file.mkOutOfStoreSymlink ./programs/nvim/config/.neoconf.json;
+  };
+
+  xdg.configFile."nvim/stylua.toml" = {
+    source = config.lib.file.mkOutOfStoreSymlink ./programs/nvim/config/stylua.toml;
   };
 
   # Media
