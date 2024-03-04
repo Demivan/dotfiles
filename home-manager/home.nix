@@ -245,26 +245,21 @@
     vimdiffAlias = true;
 
     extraPackages = with pkgs; [
+      wl-clipboard
+      codeium
+      lazygit
       ripgrep
       fzf
       fd
     ];
   };
 
-  xdg.configFile."nvim/lua" = {
-    source = config.lib.file.mkOutOfStoreSymlink ./programs/nvim/config/lua;
+  xdg.configFile."nvim/lua/" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/home-manager/programs/nvim/config/lua/";
   };
 
   xdg.configFile."nvim/init.lua" = {
-    source = config.lib.file.mkOutOfStoreSymlink ./programs/nvim/config/init.lua;
-  };
-
-  xdg.configFile."nvim/.neoconf.json" = {
-    source = config.lib.file.mkOutOfStoreSymlink ./programs/nvim/config/.neoconf.json;
-  };
-
-  xdg.configFile."nvim/stylua.toml" = {
-    source = config.lib.file.mkOutOfStoreSymlink ./programs/nvim/config/stylua.toml;
+    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/home-manager/programs/nvim/config/init.lua";
   };
 
   # Media

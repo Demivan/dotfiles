@@ -12,9 +12,21 @@ require("lazy").setup({
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
     -- import any extras modules here
     { import = "lazyvim.plugins.extras.lang.typescript" },
+    { import = "lazyvim.plugins.extras.linting.eslint" },
     { import = "lazyvim.plugins.extras.util.project" },
-    -- { import = "lazyvim.plugins.extras.lang.json" },
-    -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
+    { import = "lazyvim.plugins.extras.editor.leap" },
+    { import = "lazyvim.plugins.extras.coding.codeium" },
+    { 
+      "Exafunction/codeium.nvim",
+      cmd = "Codeium",
+      build = ":Codeium Auth",
+      opts = {
+        tools = {
+          -- TODO: replace with dynamic codeium_language_server path
+          language_server = "/nix/store/c8p9wlmryjy8kh78l868dknmxw6bwp8x-codeium-1.6.38/bin/codeium_language_server"
+        }
+      }
+    }
     -- import/override with your plugins
     { import = "plugins" },
   },
