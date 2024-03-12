@@ -94,11 +94,22 @@
     nodejs_21
     corepack_21 # pnpm
     bun
+    eza
     (with dotnetCorePackages;
       combinePackages [
         sdk_6_0
         sdk_8_0
       ])
+    ((rustChannelOf {
+      date = "2024-02-04";
+      channel = "nightly";
+      sha256 = "sha256-MR0rZ9wid6oc0sGwg4/MnOkPSQ06qVtYjV6X8a+BZA8=";
+    }).rust.override {
+      targets = [ "wasm32-unknown-unknown" ];
+      extensions = [
+        "rust-src"
+      ];
+    })
 
     # NixOS
     nil
@@ -247,6 +258,8 @@
     extraPackages = with pkgs; [
       wl-clipboard
       codeium
+      omnisharp-roslyn
+      unzip
       lazygit
       ripgrep
       fzf
