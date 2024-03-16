@@ -16,7 +16,15 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.util.project" },
     { import = "lazyvim.plugins.extras.editor.leap" },
     { import = "lazyvim.plugins.extras.coding.codeium" },
-    { 
+    { import = "lazyvim.plugins.extras.lang.omnisharp" },
+    { import = "lazyvim.plugins.extras.lang.rust" },
+    {
+      "williamboman/mason.nvim",
+      opts = {
+        PATH = "append",
+      }
+    },
+    {
       "Exafunction/codeium.nvim",
       cmd = "Codeium",
       build = ":Codeium Auth",
@@ -26,7 +34,28 @@ require("lazy").setup({
           language_server = "/nix/store/c8p9wlmryjy8kh78l868dknmxw6bwp8x-codeium-1.6.38/bin/codeium_language_server"
         }
       }
-    }
+    },
+    {
+      "stevearc/conform.nvim",
+      optional = true,
+      opts = {
+        formatters_by_ft = {
+          ["javascript"] = { "eslint" },
+          ["typescript"] = { "eslint" },
+          ["vue"] = { "eslint" },
+        },
+      },
+    },
+    {
+      "neovim/nvim-lspconfig",
+      opts = {
+        servers = {
+          omnisharp = {
+            cmd = { "/nix/store/zpvg8d9zwwxj6g344cdqv3grpldcxvxz-omnisharp-roslyn-1.39.11/bin/OmniSharp" }
+          },
+        },
+      },
+    },
     -- import/override with your plugins
     { import = "plugins" },
   },

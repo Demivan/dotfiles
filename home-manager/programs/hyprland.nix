@@ -51,8 +51,8 @@
         shadow_range = 25;
         shadow_render_power = 15;
         shadow_ignore_window = false;
-        "col.shadow" = config.colorScheme.palette.base00;
-        "col.shadow_inactive" = config.colorScheme.palette.base00;
+        "col.shadow" = "rgb(${config.colorScheme.palette.base00})";
+        "col.shadow_inactive" = "rgb(${config.colorScheme.palette.base00})";
       };
 
       "$mod" = "SUPER";

@@ -13,7 +13,7 @@
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod"];
   boot.initrd.kernelModules = [];
   boot.kernelPackages = pkgs.linuxPackages_zen;
-  boot.zfs.enableUnstable = true;
+  boot.zfs.package = pkgs.zfs_unstable;
   boot.kernelModules = ["kvm-amd"];
   boot.extraModulePackages = [];
 

@@ -76,14 +76,7 @@
     hyprshot
 
     # General
-    (lib.throwIf (lib.strings.versionOlder "1.5.3" obsidian.version) "Obsidian no longer requires EOL Electron" (
-      obsidian.override {
-        electron = electron_25.overrideAttrs (_: {
-          preFixup = "patchelf --add-needed ${libglvnd}/lib/libEGL.so.1 $out/bin/electron"; # NixOS/nixpkgs#272912
-          meta.knownVulnerabilities = []; # NixOS/nixpkgs#273611
-        });
-      }
-    ))
+    obsidian
     cinnamon.nemo-with-extensions
 
     # Development
