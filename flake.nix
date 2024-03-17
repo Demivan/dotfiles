@@ -7,6 +7,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-gaming.url = "github:fufexan/nix-gaming";
     nix-colors.url = "github:misterio77/nix-colors";
 
     sddm-sugar-catppuccin = {
