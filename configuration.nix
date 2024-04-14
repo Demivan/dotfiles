@@ -31,11 +31,21 @@
     };
   };
 
-  virtualisation.docker = {
-    enable = true;
-    enableOnBoot = true;
-    autoPrune.enable = true;
-  };
+  virtualisation = {
+    containers.enable = true;
+
+    docker = {
+      enable = true;
+      autoPrune.enable = true;
+    };
+
+    podman = {
+      enable = true;
+      autoPrune.enable = true;
+    };
+
+    oci-containers.backend = "podman";
+  }; 
 
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
