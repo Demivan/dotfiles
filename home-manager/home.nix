@@ -80,6 +80,7 @@
     cinnamon.nemo-with-extensions
 
     # Development
+    pritunl-client
     git
     p7zip
     neovide

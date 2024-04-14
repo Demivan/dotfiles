@@ -20,13 +20,6 @@
   # Networking
   networking.hostName = "ivan-pc";
   networking.networkmanager.enable = true;
-  # VPN
-  networking.networkmanager.enableStrongSwan = true;
-  services.xl2tpd.enable = true;
-  services.strongswan = {
-    enable = true;
-    secrets = ["/etc/ipsec.d/ipsec.secrets" "ipsec.d/ipsec.nm-l2tp.secrets"];
-  };
 
   # Set your time zone.
   time.timeZone = "Europe/Kyiv";
@@ -65,7 +58,7 @@
     package = with pkgs; steam.override {extraPkgs = pkgs: [attr];};
 
     extraCompatPackages = [
-      inputs.nix-gaming.packages.${system}.proton-ge
+      pkgs.proton-ge-bin
     ];
   };
 
@@ -84,6 +77,9 @@
         TimeoutStopSec = 10;
       };
     };
+
+    packages = [ pkgs.pritunl-client ];
+    targets.multi-user.wants = [ "pritunl-client.service" ];
   };
 
   # Sound config
