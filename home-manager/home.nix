@@ -46,8 +46,8 @@
           src = prev.fetchFromGitHub {
             owner = "CleverRaven";
             repo = "Cataclysm-DDA";
-            rev = "d6b054c440617aa2385039fe03b3c0ddc25869a2";
-            sha256 = "sha256-O/NMmLEztcBCvQV1hbIqvqP5iO1n7oZfgeq9R9Jp0v0=";
+            rev = "6797b1d0d353cad36db76f36a306e804e7d8d7cb";
+            sha256 = "sha256-02lD54q7GofImDOYjvdA7obrmCBGOkBkXUYv73zYwyM=";
           };
 
           patches = [
@@ -85,13 +85,14 @@
     p7zip
     neovide
     jetbrains-toolbox
-    nodejs_21
-    corepack_21 # pnpm
+    nodejs_22
+    corepack_22 # pnpm
     bun
     eza
     (with dotnetCorePackages;
       combinePackages [
         sdk_6_0
+        sdk_7_0
         sdk_8_0
       ])
     ((rustChannelOf {
@@ -118,10 +119,11 @@
     # Gaming
     bottles
     starsector
-    cataclysm-dda-git
+    # cataclysm-dda-git
 
     # Media
     playerctl
+    gimp
   ];
 
   fonts.fontconfig.enable = true;
@@ -239,6 +241,11 @@
       "nix.enableLanguageServer" = true;
       "nix.serverPath" = "nil";
     };
+  };
+
+  programs.zellij = {
+    enable = true;
+    enableFishIntegration = true;
   };
 
   programs.neovim = {

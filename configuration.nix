@@ -32,7 +32,17 @@
   };
 
   virtualisation = {
-    containers.enable = true;
+    containers = {
+      enable = true;
+
+      policy = {
+        default = [
+          {
+            type = "insecureAcceptAnything";
+          }
+        ];
+      };
+    };
 
     docker = {
       enable = true;
@@ -45,7 +55,7 @@
     };
 
     oci-containers.backend = "podman";
-  }; 
+  };
 
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
@@ -107,6 +117,15 @@
     isNormalUser = true;
     shell = pkgs.fish;
     extraGroups = ["wheel" "docker"]; # Enable ‘sudo’ for the user.
+
+    autoSubUidGidRange = true;
+  };
+
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 4d --keep 3";
+    flake = "/home/${username}/.dotfiles";
   };
 
   # List packages installed in system profile. To search, run:
@@ -129,11 +148,9 @@
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   # List services that you want to enable:
-  # TODO: There is no need for X-server
-  services.xserver.enable = true;
-  services.xserver.libinput.enable = true;
-  services.xserver.displayManager.sddm = {
+  services.displayManager.sddm = {
     enable = true;
+    wayland.enable = true;
     theme = "${inputs.sddm-sugar-catppuccin.packages.${system}.default}/share/sddm/themes/sugar-catppuccin/";
   };
 
