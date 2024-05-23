@@ -134,8 +134,6 @@
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     git
     wget
-    libsForQt5.qt5.qtquickcontrols2
-    libsForQt5.qt5.qtgraphicaleffects
   ];
 
   programs.hyprland = {
@@ -151,6 +149,10 @@
   services.displayManager.sddm = {
     enable = true;
     wayland.enable = true;
+    extraPackages = with pkgs; [
+      libsForQt5.qt5.qtquickcontrols2
+      libsForQt5.qt5.qtgraphicaleffects
+    ];
     theme = "${inputs.sddm-sugar-catppuccin.packages.${system}.default}/share/sddm/themes/sugar-catppuccin/";
   };
 
