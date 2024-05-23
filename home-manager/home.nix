@@ -85,6 +85,7 @@
     p7zip
     neovide
     jetbrains-toolbox
+    deno
     nodejs_22
     corepack_22 # pnpm
     bun
@@ -120,7 +121,11 @@
     bottles
     starsector
     # cataclysm-dda-git
+    prismlauncher
 
+    grim
+    slurp
+    
     # Media
     playerctl
     gimp
