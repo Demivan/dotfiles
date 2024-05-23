@@ -213,24 +213,6 @@
   programs.vscode = {
     enable = true;
     package = pkgs.vscode;
-
-    extensions = with pkgs.vscode-extensions; [
-      catppuccin.catppuccin-vsc
-    ];
-
-    userSettings = {
-      "window.titleBarStyle" = "custom";
-
-      "workbench.colorTheme" = "Catppuccin Mocha";
-
-      "editor.fontFamily" = config.font.family;
-      "editor.fontSize" = 16;
-      "editor.fontLigatures" = true;
-      "terminal.integrated.fontSize" = 16;
-
-      "nix.enableLanguageServer" = true;
-      "nix.serverPath" = "nil";
-    };
   };
 
   programs.zellij = {
