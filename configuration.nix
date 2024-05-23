@@ -146,6 +146,10 @@
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   # List services that you want to enable:
+  services.displayManager.autoLogin = {
+    enable = true;
+    user = username;
+  };
   services.displayManager.sddm = {
     enable = true;
     wayland.enable = true;
