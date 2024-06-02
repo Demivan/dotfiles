@@ -38,10 +38,6 @@
     pkgs = import nixpkgs {
       inherit system;
 
-      overlays = [
-        nixpkgs-mozilla.overlays.rust
-      ];
-
       config.allowUnfree = true;
     };
 
@@ -58,6 +54,9 @@
     };
   in {
     nixosConfigurations."ivan-pc" = nixpkgs.lib.nixosSystem {
+      inherit system;
+      inherit pkgs;
+
       specialArgs = {
         inherit system;
         inherit inputs;
@@ -72,6 +71,7 @@
 
     homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
+      
       extraSpecialArgs = {
         inherit system;
         inherit inputs;

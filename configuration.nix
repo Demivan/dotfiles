@@ -72,8 +72,7 @@
     setLdLibraryPath = true;
   };
 
-  nixpkgs.config.allowUnfree = true; # Slack, Steam, etc.
-  programs.steam = {
+    programs.steam = {
     enable = true;
     extraCompatPackages = [
       pkgs.proton-ge-bin

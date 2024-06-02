@@ -33,6 +33,7 @@
 
   # Overlays
   nixpkgs.overlays = [
+    inputs.nixpkgs-mozilla.overlays.rust
     (final: prev: {
       cataclysm-dda-git =
         (prev
