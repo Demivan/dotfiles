@@ -75,8 +75,6 @@
   nixpkgs.config.allowUnfree = true; # Slack, Steam, etc.
   programs.steam = {
     enable = true;
-    package = with pkgs; steam.override {extraPkgs = pkgs: [attr];};
-
     extraCompatPackages = [
       pkgs.proton-ge-bin
     ];
