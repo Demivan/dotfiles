@@ -65,8 +65,7 @@
         clock = {
           timezone = "Europe/Kyiv";
           "tooltip-format" = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-          "format-alt" = "󰃭 {:%d/%m/%Y}";
-          format = " {:%H:%M}";
+          format = " {:%H:%M 󰃭 %d/%m/%Y}";
         };
         battery = {
           states = {

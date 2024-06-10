@@ -35,20 +35,20 @@
   nixpkgs.overlays = [
     inputs.nixpkgs-mozilla.overlays.rust
     (final: prev: {
-      cataclysm-dda-git =
+      cataclysm-dda-git = 
         (prev
           .cataclysm-dda-git
           .override {
-            stdenv = prev.ccacheStdenv;
+            # stdenv = prev.ccacheStdenv;
           })
         .overrideAttrs (old: {
           version = "0.0.0";
 
-          src = prev.fetchFromGitHub {
+          src = pkgs.fetchFromGitHub {
             owner = "CleverRaven";
             repo = "Cataclysm-DDA";
-            rev = "6797b1d0d353cad36db76f36a306e804e7d8d7cb";
-            sha256 = "sha256-02lD54q7GofImDOYjvdA7obrmCBGOkBkXUYv73zYwyM=";
+            rev = "f608d5b853e0d9d8492e2bc64166d60cc5d21007";
+            sha256 = "sha256-h1hfIEpz8tETTvNAm2fD3RWaVoem55yce34NW3ATuqg=";
           };
 
           patches = [
@@ -97,16 +97,16 @@
         sdk_7_0
         sdk_8_0
       ])
+    just
     ((rustChannelOf {
-      date = "2024-02-04";
-      channel = "nightly";
-      sha256 = "sha256-MR0rZ9wid6oc0sGwg4/MnOkPSQ06qVtYjV6X8a+BZA8=";
+      channel = "1.78.0";
+      sha256 = "sha256-opUgs6ckUQCyDxcB9Wy51pqhd0MPGHUVbwRKKPGiwZU=";
     }).rust.override {
-      targets = [ "wasm32-unknown-unknown" ];
       extensions = [
         "rust-src"
       ];
     })
+    gcc
 
     # NixOS
     nil
@@ -121,7 +121,7 @@
     # Gaming
     bottles
     starsector
-    # cataclysm-dda-git
+    cataclysm-dda-git
     prismlauncher
 
     grim
@@ -130,6 +130,7 @@
     # Media
     playerctl
     gimp
+    vlc
   ];
 
   fonts.fontconfig = {
@@ -223,7 +224,6 @@
 
   programs.zellij = {
     enable = true;
-    enableFishIntegration = true;
   };
 
   programs.neovim = {

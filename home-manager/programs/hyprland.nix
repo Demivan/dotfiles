@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: {
   wayland.windowManager.hyprland = let
@@ -64,8 +65,7 @@
 
           "$mod, Q, killactive"
 
-          # Wofi
-          "$mod, D, exec, wofi --show drun --prompt 'Search...'"
+          "$mod, D, exec, pkill wofi || ${pkgs.wofi}/bin/wofi --show drun --prompt 'Search...'"
 
           # Switch between windows
           "$mod, Tab, cyclenext"
