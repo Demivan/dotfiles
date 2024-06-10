@@ -8,10 +8,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-gaming = {
-       url = "github:fufexan/nix-gaming";
-       inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:fufexan/nix-gaming";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    ags = {
+      url = "github:Aylur/ags";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-colors.url = "github:misterio77/nix-colors";
 
     sddm-sugar-catppuccin = {
@@ -71,7 +75,7 @@
 
     homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
-      
+
       extraSpecialArgs = {
         inherit system;
         inherit inputs;

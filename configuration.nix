@@ -95,8 +95,8 @@
       };
     };
 
-    packages = [ pkgs.pritunl-client ];
-    targets.multi-user.wants = [ "pritunl-client.service" ];
+    packages = [pkgs.pritunl-client];
+    targets.multi-user.wants = ["pritunl-client.service"];
   };
 
   # Sound config
@@ -167,7 +167,7 @@
   programs.fish.enable = true;
 
   services.devmon.enable = true;
-  services.gvfs.enable = true; 
+  services.gvfs.enable = true;
   services.udisks2.enable = true;
 
   # Open ports in the firewall.

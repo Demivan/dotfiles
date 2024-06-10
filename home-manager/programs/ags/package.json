@@ -1,0 +1,15 @@
+{
+  "name": "ags-dotfiles",
+  "type": "module",
+  "packageManager": "pnpm@9.2.0",
+  "scripts": {
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^2.21.0",
+    "@girs/accountsservice-1.0": "^1.0.0-3.2.7",
+    "eslint": "9.4.0",
+    "typescript": "^5.3.3"
+  }
+}

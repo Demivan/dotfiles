@@ -10,6 +10,7 @@
 }: {
   imports = [
     nix-colors.homeManagerModules.default
+    inputs.ags.homeManagerModules.default
     ./programs/hyprland.nix
     ./programs/waybar.nix
     ./programs/wofi.nix
@@ -35,26 +36,6 @@
   nixpkgs.overlays = [
     inputs.nixpkgs-mozilla.overlays.rust
     (final: prev: {
-      cataclysm-dda-git = 
-        (prev
-          .cataclysm-dda-git
-          .override {
-            # stdenv = prev.ccacheStdenv;
-          })
-        .overrideAttrs (old: {
-          version = "0.0.0";
-
-          src = pkgs.fetchFromGitHub {
-            owner = "CleverRaven";
-            repo = "Cataclysm-DDA";
-            rev = "f608d5b853e0d9d8492e2bc64166d60cc5d21007";
-            sha256 = "sha256-h1hfIEpz8tETTvNAm2fD3RWaVoem55yce34NW3ATuqg=";
-          };
-
-          patches = [
-          ];
-        });
-
       slack = prev.slack.overrideAttrs (old: {
         fixupPhase = ''
           sed -i -e 's/,"WebRTCPipeWireCapturer"/,"LebRTCPipeWireCapturer"/' $out/lib/slack/resources/app.asar
@@ -62,7 +43,7 @@
           rm $out/bin/slack
           makeWrapper $out/lib/slack/slack $out/bin/slack \
             --prefix XDG_DATA_DIRS : $GSETTINGS_SCHEMAS_PATH \
-            --suffix PATH : ${lib.makeBinPath [ pkgs.xdg-utils ]} \
+            --suffix PATH : ${lib.makeBinPath [pkgs.xdg-utils]} \
             --add-flags "--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations,WebRTCPipeWireCapturer"
         '';
       });
@@ -74,7 +55,9 @@
   home.packages = with pkgs; [
     # Looks
     (nerdfonts.override {fonts = [config.font.name];})
-    hyprshot
+    (pkgs.callPackage ./programs/ags/default.nix {
+      inherit inputs;
+    })
 
     # General
     obsidian
@@ -99,13 +82,15 @@
       ])
     just
     ((rustChannelOf {
-      channel = "1.78.0";
-      sha256 = "sha256-opUgs6ckUQCyDxcB9Wy51pqhd0MPGHUVbwRKKPGiwZU=";
-    }).rust.override {
-      extensions = [
-        "rust-src"
-      ];
-    })
+        channel = "1.78.0";
+        sha256 = "sha256-opUgs6ckUQCyDxcB9Wy51pqhd0MPGHUVbwRKKPGiwZU=";
+      })
+      .rust
+      .override {
+        extensions = [
+          "rust-src"
+        ];
+      })
     gcc
 
     # NixOS
@@ -121,12 +106,8 @@
     # Gaming
     bottles
     starsector
-    cataclysm-dda-git
     prismlauncher
 
-    grim
-    slurp
-    
     # Media
     playerctl
     gimp
@@ -135,7 +116,7 @@
 
   fonts.fontconfig = {
     enable = true;
-    
+
     defaultFonts = {
       monospace = [config.font.family];
     };
@@ -172,6 +153,12 @@
 
     profiles.${username} = {
     };
+  };
+
+  programs.ags = {
+    enable = true;
+
+    configDir = ./programs/ags;
   };
 
   # UI
