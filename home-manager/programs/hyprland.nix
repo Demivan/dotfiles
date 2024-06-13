@@ -39,6 +39,10 @@
         "col.active_border" = "rgb(${config.colorScheme.palette.base0D})";
       };
 
+      cursor = {
+        no_warps = true;
+      };
+
       misc = {
         vrr = 1;
         focus_on_activate = true;
@@ -65,7 +69,7 @@
 
           "$mod, Q, killactive"
 
-          "$mod, D, exec, pkill wofi || ${pkgs.wofi}/bin/wofi --show drun --prompt 'Search...'"
+          "$mod, D, exec, ags -t launcher"
 
           # Switch between windows
           "$mod, Tab, cyclenext"

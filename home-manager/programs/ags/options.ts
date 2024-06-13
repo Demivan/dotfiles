@@ -51,7 +51,7 @@ const options = mkOptions(OPTIONS, {
 
     shadows: opt(true),
     padding: opt(7),
-    spacing: opt(12),
+    spacing: opt(6),
     radius: opt(11),
   },
 
@@ -117,7 +117,7 @@ const options = mkOptions(OPTIONS, {
     },
     taskbar: {
       iconSize: opt(0),
-      monochrome: opt(true),
+      monochrome: opt(false),
       exclusive: opt(false),
     },
     messages: {
@@ -170,7 +170,7 @@ const options = mkOptions(OPTIONS, {
   overview: {
     scale: opt(9),
     workspaces: opt(7),
-    monochromeIcon: opt(true),
+    monochromeIcon: opt(false),
   },
 
   powermenu: {

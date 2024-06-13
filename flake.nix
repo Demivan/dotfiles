@@ -12,6 +12,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hyprland = {
+      type = "git";
+      url = "https://github.com/hyprwm/Hyprland";
+      submodules = true;
+    };
     ags = {
       url = "github:Aylur/ags";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -85,6 +90,7 @@
 
       modules = [
         extraOptions
+        inputs.hyprland.homeManagerModules.default
         ./home-manager/home.nix
       ];
     };

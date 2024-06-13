@@ -12,7 +12,6 @@
     nix-colors.homeManagerModules.default
     inputs.ags.homeManagerModules.default
     ./programs/hyprland.nix
-    ./programs/waybar.nix
     ./programs/wofi.nix
   ];
 
@@ -55,9 +54,25 @@
   home.packages = with pkgs; [
     # Looks
     (nerdfonts.override {fonts = [config.font.name];})
-    (pkgs.callPackage ./programs/ags/default.nix {
-      inherit inputs;
-    })
+
+    # Ags dependencies
+    entr
+    esbuild
+    dart-sass
+    fd
+    brightnessctl
+    swww
+    # inputs.matugen.packages.${system}.default
+    slurp
+    wf-recorder
+    wl-clipboard
+    wayshot
+    swappy
+    hyprpicker
+    pavucontrol
+    networkmanager
+    gtk3
+    #######
 
     # General
     obsidian
@@ -109,7 +124,6 @@
     prismlauncher
 
     # Media
-    playerctl
     gimp
     vlc
   ];
