@@ -12,7 +12,6 @@
     nix-colors.homeManagerModules.default
     inputs.ags.homeManagerModules.default
     ./programs/hyprland.nix
-    ./programs/wofi.nix
   ];
 
   colorScheme = nix-colors.colorSchemes.catppuccin-mocha;

@@ -22,7 +22,7 @@
   gtk3,
   which,
 }: let
-  name = "ags-deps";
+  name = "ags-custom";
 
   ags = inputs.ags.packages.${system}.default.override {
     extraPackages = [accountsservice];
