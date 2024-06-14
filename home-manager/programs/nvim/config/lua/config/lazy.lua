@@ -15,7 +15,6 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.linting.eslint" },
     { import = "lazyvim.plugins.extras.util.project" },
     { import = "lazyvim.plugins.extras.editor.leap" },
-    { import = "lazyvim.plugins.extras.coding.codeium" },
     { import = "lazyvim.plugins.extras.lang.omnisharp" },
     { import = "lazyvim.plugins.extras.lang.rust" },
     {
@@ -25,15 +24,10 @@ require("lazy").setup({
       }
     },
     {
-      "Exafunction/codeium.nvim",
-      cmd = "Codeium",
-      build = ":Codeium Auth",
-      opts = {
-        tools = {
-          -- TODO: replace with dynamic codeium_language_server path
-          language_server = "/nix/store/c8p9wlmryjy8kh78l868dknmxw6bwp8x-codeium-1.6.38/bin/codeium_language_server"
-        }
-      }
+      "supermaven-inc/supermaven-nvim",
+      config = function()
+        require("supermaven-nvim").setup({})
+      end,
     },
     {
       "stevearc/conform.nvim",
