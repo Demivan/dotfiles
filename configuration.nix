@@ -6,6 +6,7 @@
   inputs,
   username,
   pkgs,
+  ags,
   ...
 }: {
   imports = [
@@ -121,7 +122,7 @@
   programs.nh = {
     enable = true;
     clean.enable = true;
-    clean.extraArgs = "--keep-since 4d --keep 3";
+    clean.extraArgs = "--keep-since 4d --keep 5";
     flake = "/home/${username}/.dotfiles";
   };
 
@@ -147,15 +148,24 @@
     enable = true;
     user = username;
   };
-  services.displayManager.sddm = {
+
+  services.greetd = {
     enable = true;
-    wayland.enable = true;
-    extraPackages = with pkgs; [
-      libsForQt5.qt5.qtquickcontrols2
-      libsForQt5.qt5.qtgraphicaleffects
-    ];
-    theme = "${inputs.sddm-sugar-catppuccin.packages.${system}.default}/share/sddm/themes/sugar-catppuccin/";
+    settings = {
+      initial_session = {
+        command = "${pkgs.hyprland}/bin/Hyprland";
+        user = "${username}";
+      };
+      default_session = {
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --greeting 'Welcome to NixOS!' --asterisks --remember --remember-user-session --time -cmd ${pkgs.hyprland}/bin/Hyprland";
+        user = "greeter";
+      };
+    };
   };
+
+  systemd.tmpfiles.rules = [
+    "d '/var/cache/greeter' - greeter greeter - -"
+  ];
 
   xdg.portal = {
     enable = true;

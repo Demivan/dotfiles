@@ -52,12 +52,12 @@
 
   greeter = writeShellScript "greeter" ''
     export PATH=$PATH:${addBins dependencies}
-    ${cage}/bin/cage -ds -m last ${ags}/bin/ags -- -c ${config}/greeter.js
+    ${cage}/bin/cage -ds -m last ${ags}/bin/ags -- -b greeter -c ${config}/greeter.js
   '';
 
   desktop = writeShellScript name ''
     export PATH=$PATH:${addBins dependencies}
-    ${ags}/bin/ags -b ${name} -c ${config}/config.js $@
+    ${ags}/bin/ags -b bar -c ${config}/config.js $@
   '';
 
   config = stdenv.mkDerivation {

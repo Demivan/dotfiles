@@ -1,12 +1,5 @@
-{ inputs, pkgs, ... }:
-let
-  ags = pkgs.callPackage ./default.nix { inherit inputs; };
-in
+{ ags, ... }:
 {
-  imports = [
-    inputs.ags.homeManagerModules.default
-  ];
-
   home.packages = [ ags ];
 
   systemd.user.services.ags = {

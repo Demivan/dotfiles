@@ -23,11 +23,6 @@
     };
     nix-colors.url = "github:misterio77/nix-colors";
 
-    sddm-sugar-catppuccin = {
-      url = "github:TiagoDamascena/sddm-sugar-catppuccin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nixpkgs-mozilla = {
       url = "github:mozilla/nixpkgs-mozilla";
     };
@@ -50,6 +45,8 @@
       config.allowUnfree = true;
     };
 
+    ags = pkgs.callPackage ./ags { inherit inputs; };
+
     extraOptions = {lib, ...}: {
       options = {
         font = pkgs.lib.mkOption {
@@ -70,6 +67,7 @@
         inherit system;
         inherit inputs;
         inherit username;
+        inherit ags;
       };
 
       modules = [
@@ -86,6 +84,7 @@
         inherit inputs;
         inherit username;
         inherit nix-colors;
+        inherit ags;
       };
 
       modules = [
