@@ -10,7 +10,7 @@
 }: {
   imports = [
     nix-colors.homeManagerModules.default
-    inputs.ags.homeManagerModules.default
+    ./programs/ags/hm-module.nix
     ./programs/hyprland.nix
   ];
 
@@ -53,25 +53,6 @@
   home.packages = with pkgs; [
     # Looks
     (nerdfonts.override {fonts = [config.font.name];})
-
-    # Ags dependencies
-    entr
-    esbuild
-    dart-sass
-    fd
-    brightnessctl
-    swww
-    # inputs.matugen.packages.${system}.default
-    slurp
-    wf-recorder
-    wl-clipboard
-    wayshot
-    swappy
-    hyprpicker
-    pavucontrol
-    networkmanager
-    gtk3
-    #######
 
     # General
     obsidian
@@ -166,18 +147,6 @@
 
     profiles.${username} = {
     };
-  };
-
-  programs.ags = {
-    enable = true;
-
-    configDir = ./programs/ags;
-  };
-
-  # UI
-  services.mako = {
-    enable = true;
-    defaultTimeout = 5000;
   };
 
   # Shell

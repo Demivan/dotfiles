@@ -21,8 +21,9 @@
   networkmanager,
   gtk3,
   which,
+  ...
 }: let
-  name = "ags-custom";
+  name = "ags";
 
   ags = inputs.ags.packages.${system}.default.override {
     extraPackages = [accountsservice];
