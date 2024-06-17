@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  ags,
   pkgs,
   ...
 }: {
@@ -69,7 +70,7 @@
 
           "$mod, Q, killactive"
 
-          "$mod, D, exec, ags -t launcher"
+          "$mod, D, exec, ${ags}/bin/ags -t launcher"
 
           # Switch between windows
           "$mod, Tab, cyclenext"
@@ -107,6 +108,7 @@
 
     extraConfig = ''
       exec-once=hyprctl setcursor Bibata-Modern-Ice 22
+      exec-once=${ags}/bin/ags
     '';
   };
 }

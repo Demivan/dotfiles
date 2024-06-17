@@ -43,9 +43,13 @@
       inherit system;
 
       config.allowUnfree = true;
+
+      overlays = [
+        inputs.hyprland.overlays.default
+      ];
     };
 
-    ags = pkgs.callPackage ./ags { inherit inputs; };
+    ags = pkgs.callPackage ./home-manager/programs/ags { inherit inputs; };
 
     extraOptions = {lib, ...}: {
       options = {

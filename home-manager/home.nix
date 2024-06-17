@@ -10,7 +10,6 @@
 }: {
   imports = [
     nix-colors.homeManagerModules.default
-    ./programs/ags/hm-module.nix
     ./programs/hyprland.nix
   ];
 
