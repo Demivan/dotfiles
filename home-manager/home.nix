@@ -56,6 +56,7 @@
     # General
     obsidian
     cinnamon.nemo-with-extensions
+    tor-browser-bundle-bin
 
     # Development
     pritunl-client
