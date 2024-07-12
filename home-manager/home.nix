@@ -99,7 +99,6 @@
     telegram-desktop
 
     # Gaming
-    bottles
     starsector
     prismlauncher
 

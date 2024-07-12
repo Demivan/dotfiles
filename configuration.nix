@@ -58,9 +58,6 @@
     oci-containers.backend = "podman";
   };
 
-  virtualisation.libvirtd.enable = true;
-  programs.virt-manager.enable = true;
-
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
   services.blueman.enable = true;
@@ -177,9 +174,6 @@
   services.devmon.enable = true;
   services.gvfs.enable = true;
   services.udisks2.enable = true;
-
-  hardware.logitech.wireless.enable = true;
-  hardware.logitech.wireless.enableGraphical = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
