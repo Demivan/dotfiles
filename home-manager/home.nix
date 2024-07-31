@@ -90,7 +90,8 @@
 
     # NixOS
     nil
-
+    sops
+    gnome.seahorse # for gpg
     remmina
 
     # Communication
@@ -100,12 +101,21 @@
 
     # Gaming
     starsector
+    bottles
     prismlauncher
 
     # Media
     gimp
     vlc
   ];
+
+  services.gnome-keyring.enable = true;
+
+  programs.gpg.enable = true;
+  services.gpg-agent = {
+    enable = true;
+    pinentryPackage = pkgs.pinentry-gnome3;
+  };
 
   fonts.fontconfig = {
     enable = true;

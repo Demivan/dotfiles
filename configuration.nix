@@ -58,9 +58,16 @@
     oci-containers.backend = "podman";
   };
 
+  services.hardware.openrgb.enable = true;
+
+  services.pcscd.enable = true;
+
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
   services.blueman.enable = true;
+
+  hardware.logitech.wireless.enable = true;
+  hardware.logitech.wireless.enableGraphical = true;
 
   # For steam support
   hardware.graphics = {
@@ -131,9 +138,6 @@
 
   programs.hyprland = {
     enable = true;
-    xwayland = {
-      enable = false;
-    };
   };
   # Hint to Electron apps to run native Wayland
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
