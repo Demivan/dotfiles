@@ -26,14 +26,12 @@ const {
 
 const popoverPaddingMultiplier = 1.6
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function t(dark: Opt<any> | string, light: Opt<any> | string) {
   return scheme.value === 'dark'
     ? `${dark}`
     : `${light}`
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const $ = (name: string, value: string | Opt<any>) => `$${name}: ${value};`
 
 function variables() {
