@@ -55,7 +55,7 @@
 
     # General
     obsidian
-    cinnamon.nemo-with-extensions
+    nemo
     tor-browser-bundle-bin
 
     # Development
@@ -91,8 +91,10 @@
     # NixOS
     nil
     sops
-    gnome.seahorse # for gpg
-    remmina
+    seahorse # for gpg
+    (remmina.override {
+      withKf5Wallet = false;
+    })
 
     # Communication
     slack
@@ -106,7 +108,6 @@
 
     # Media
     gimp
-    vlc
   ];
 
   services.gnome-keyring.enable = true;
@@ -241,7 +242,7 @@
   gtk = {
     enable = true;
     theme = {
-      name = "Catppuccin-Mocha-Compact-Blue-Dark";
+      name = "catppuccin-mocha-blue-compact+rimless";
       package = pkgs.catppuccin-gtk.override {
         accents = ["blue"];
         size = "compact";

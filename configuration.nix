@@ -166,13 +166,6 @@
     "d '/var/cache/greeter' - greeter greeter - -"
   ];
 
-  xdg.portal = {
-    enable = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-gtk
-    ];
-  };
-
   programs.fish.enable = true;
 
   services.devmon.enable = true;
