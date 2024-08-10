@@ -2,6 +2,8 @@ import type { Notification } from 'types/service/notifications'
 import GLib from 'gi://GLib'
 import icons from 'lib/icons'
 
+import '../../style/widgets/notifications.scss'
+
 function time(time: number, format = '%H:%M') {
   return GLib.DateTime
     .new_from_unix_local(time)

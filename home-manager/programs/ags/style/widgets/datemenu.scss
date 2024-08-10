@@ -1,4 +1,6 @@
 @import "./notifications.scss";
+@import "../mixins/scrollable";
+@import "../mixins/widget";
 
 @mixin calendar {
     @include widget;

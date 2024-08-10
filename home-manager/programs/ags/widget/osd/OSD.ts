@@ -4,6 +4,8 @@ import brightness from 'service/brightness'
 import options from 'options'
 import Progress from './Progress'
 
+import '../../style/widgets/osd.scss'
+
 const audio = await Service.import('audio')
 const { progress, microphone } = options.osd
 

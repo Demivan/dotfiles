@@ -4,9 +4,8 @@
   system,
   stdenv,
   swww,
-  esbuild,
-  dart-sass,
-  fd,
+  nodejs,
+  pnpm,
   fzf,
   brightnessctl,
   accountsservice,
@@ -30,8 +29,6 @@
 
   dependencies = [
     which
-    dart-sass
-    fd
     fzf
     brightnessctl
     swww
@@ -58,20 +55,24 @@
     inherit name;
     src = ./.;
 
+    pnpmDeps = pnpm.fetchDeps {
+      pname = "ags";
+      src = ./.;
+      hash = "sha256-3UYm4dKllC/XgLLd6WxJc9gOXeuS4jeORBXH/3Xzo/Y=";
+    };
+
+    nativeBuildInputs = [
+      nodejs
+      pnpm.configHook
+    ];
+
     buildPhase = ''
-      ${esbuild}/bin/esbuild \
-        --bundle ./main.ts \
-        --outfile=main.js \
-        --format=esm \
-        --external:resource://\* \
-        --external:gi://\* \
+      ${pnpm}/bin/pnpm build -- ./main.ts ./main.js
     '';
 
     installPhase = ''
       mkdir -p $out
-      cp -r assets $out
-      cp -r style $out
-      cp -r widget $out
+      cp -r style.css $out/style.css
       cp -f main.js $out/config.js
     '';
   };

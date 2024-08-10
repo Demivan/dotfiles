@@ -4,9 +4,9 @@
     "lib": [
       "ESNext"
     ],
+    "baseUrl": ".",
     "module": "Preserve",
     "moduleResolution": "Bundler",
-    "baseUrl": ".",
     "allowJs": true,
     "checkJs": true,
     "strict": true,

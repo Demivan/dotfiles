@@ -1,5 +1,8 @@
 @use "sass:math";
 @use "sass:color";
+@import '../mixins/floating-widget';
+@import '../mixins/spacing';
+@import '../mixins/button';
 
 window#launcher .launcher {
     @include floating_widget;

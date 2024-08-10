@@ -8,14 +8,11 @@ const v = {
 
 try {
   await Utils.execAsync([
-    'esbuild',
-    '--bundle',
+    'pnpm',
+    'build',
+    '--',
     entry,
-    '--format=esm',
-        `--outfile=${main}`,
-        '--external:resource://*',
-        '--external:gi://*',
-        '--external:file://*',
+    main,
   ])
 
   if (v.ags[1] < v.expect[1] || v.ags[2] < v.expect[2]) {

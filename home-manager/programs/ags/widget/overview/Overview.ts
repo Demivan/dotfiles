@@ -3,6 +3,8 @@ import options from 'options'
 import { range } from 'lib/utils'
 import Workspace from './Workspace'
 
+import '../../style/widgets/overview.scss'
+
 const hyprland = await Service.import('hyprland')
 
 function Overview(ws: number) {

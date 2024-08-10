@@ -1,4 +1,7 @@
 @use 'sass:color';
+@import '../mixins/a11y-button';
+@import '../mixins/spacing';
+@import '../mixins/widget';
 
 $bar-spacing: $spacing * .3;
 $button-radius: $radius;

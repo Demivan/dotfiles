@@ -1,3 +1,9 @@
+@import "../mixins/floating-widget";
+@import "../mixins/spacing";
+@import "../mixins/widget";
+@import "../mixins/button";
+@import "../mixins/hidden";
+
 window#overview .overview {
     @include floating-widget;
     @include spacing;

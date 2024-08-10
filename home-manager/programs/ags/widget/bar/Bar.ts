@@ -12,6 +12,8 @@ import Workspaces from './buttons/Workspaces'
 import ScreenRecord from './buttons/ScreenRecord'
 import Messages from './buttons/Messages'
 
+import '../../style/widgets/bar.scss'
+
 const { start, center, end } = options.bar.layout
 const { transparent, position } = options.bar
 

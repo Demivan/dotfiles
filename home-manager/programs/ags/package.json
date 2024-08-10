@@ -4,12 +4,21 @@
   "packageManager": "pnpm@9.2.0",
   "scripts": {
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "build": "vite build"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.21.0",
     "@girs/accountsservice-1.0": "^1.0.0-3.2.7",
+    "@types/node": "^22.1.0",
     "eslint": "9.4.0",
-    "typescript": "^5.3.3"
+    "sass-embedded": "^1.77.8",
+    "typescript": "^5.3.3",
+    "vite": "^5.4.0"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "sass-embedded@1.77.8": "patches/sass-embedded@1.77.8.patch"
+    }
   }
 }

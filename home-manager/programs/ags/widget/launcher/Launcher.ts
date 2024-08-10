@@ -7,6 +7,8 @@ import * as AppLauncher from './AppLauncher'
 import * as NixRun from './NixRun'
 import * as ShRun from './ShRun'
 
+import '../../style/widgets/launcher.scss'
+
 const { width, margin } = options.launcher
 const isnix = nix.available
 

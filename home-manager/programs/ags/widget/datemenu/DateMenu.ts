@@ -3,6 +3,8 @@ import options from 'options'
 import NotificationColumn from './NotificationColumn'
 import DateColumn from './DateColumn'
 
+import '../../style/widgets/datemenu.scss'
+
 const { bar, datemenu } = options
 const pos = bar.position.bind()
 const layout = Utils.derive([bar.position, datemenu.position], (bar, qs) =>

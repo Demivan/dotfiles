@@ -12,6 +12,8 @@ import { DarkModeToggle } from './widgets/DarkMode'
 import { MicMute } from './widgets/MicMute'
 import { Media } from './widgets/Media'
 
+import '../../style/widgets/quicksettings.scss'
+
 const { bar, quicksettings } = options
 const media = (await Service.import('mpris')).bind('players')
 const layout = Utils.derive([bar.position, quicksettings.position], (bar, qs) =>

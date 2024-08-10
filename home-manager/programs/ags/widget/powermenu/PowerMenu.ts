@@ -4,6 +4,8 @@ import icons from 'lib/icons'
 import options from 'options'
 import type Gtk from 'gi://Gtk?version=3.0'
 
+import '../../style/widgets/powermenu.scss'
+
 const { layout, labels } = options.powermenu
 
 function SysButton(action: Action, label: string) {
