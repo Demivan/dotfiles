@@ -29,6 +29,8 @@
     enable = true;
 
     settings = {
+      monitor = ", preferred, auto, 1, bitdepth, 8, vrr, 1";
+
       general = {
         border_size = 3;
         no_border_on_floating = false;

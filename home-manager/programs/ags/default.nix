@@ -6,9 +6,9 @@
   swww,
   nodejs,
   pnpm,
+  dart-sass,
   fzf,
   brightnessctl,
-  accountsservice,
   slurp,
   wf-recorder,
   wl-clipboard,
@@ -23,9 +23,7 @@
 }: let
   name = "ags";
 
-  ags = inputs.ags.packages.${system}.default.override {
-    extraPackages = [accountsservice];
-  };
+  ags = inputs.ags.packages.${system}.default;
 
   dependencies = [
     which
@@ -48,10 +46,10 @@
 
   desktop = writeShellScript name ''
     export PATH=$PATH:${addBins dependencies}
-    ${ags}/bin/ags -b bar -c ${config}/config.js $@
+    ${ags}/bin/ags -b bar -c ${agsConfig}/config.js $@
   '';
 
-  config = stdenv.mkDerivation {
+  agsConfig = stdenv.mkDerivation {
     inherit name;
     src = ./.;
 
@@ -63,6 +61,7 @@
 
     nativeBuildInputs = [
       nodejs
+      dart-sass
       pnpm.configHook
     ];
 
@@ -79,7 +78,7 @@
 in
   stdenv.mkDerivation {
     inherit name;
-    src = config;
+    src = agsConfig;
 
     installPhase = ''
       mkdir -p $out/bin

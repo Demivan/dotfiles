@@ -138,7 +138,9 @@
 
   programs.hyprland = {
     enable = true;
+    portalPackage = pkgs.xdg-desktop-portal-wlr;
   };
+
   # Hint to Electron apps to run native Wayland
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 

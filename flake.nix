@@ -8,6 +8,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    zen-browser = {
+      url = "github:MarceColl/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     hyprland = {
       type = "git";
       url = "https://github.com/hyprwm/Hyprland";
@@ -42,7 +47,7 @@
       config.allowUnfree = true;
 
       overlays = [
-        inputs.hyprland.overlays.default
+        # inputs.hyprland.overlays.default
       ];
     };
 
@@ -90,8 +95,14 @@
 
       modules = [
         extraOptions
-        inputs.hyprland.homeManagerModules.default
+        # inputs.hyprland.homeManagerModules.default
         ./home-manager/home.nix
+        ({system, ...}: {
+          home.packages = [
+            inputs.zen-browser.packages."${system}".default
+            ags
+          ];
+        })
       ];
     };
 
