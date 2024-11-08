@@ -3,7 +3,6 @@
   lib,
   config,
   nix-colors,
-  system,
   inputs,
   username,
   ...
@@ -31,7 +30,6 @@
 
   # Overlays
   nixpkgs.overlays = [
-    inputs.nixpkgs-mozilla.overlays.rust
     (final: prev: {
       slack = prev.slack.overrideAttrs (old: {
         fixupPhase = ''
@@ -64,37 +62,22 @@
     p7zip
     neovide
     jetbrains-toolbox
-    deno
     nodejs_22
     corepack_22 # pnpm
+    deno
     bun
     eza
     (with dotnetCorePackages;
       combinePackages [
-        sdk_6_0
-        sdk_7_0
         sdk_8_0
       ])
-    just
-    ((rustChannelOf {
-        channel = "1.78.0";
-        sha256 = "sha256-opUgs6ckUQCyDxcB9Wy51pqhd0MPGHUVbwRKKPGiwZU=";
-      })
-      .rust
-      .override {
-        extensions = [
-          "rust-src"
-        ];
-      })
-    gcc
+    go
 
     # NixOS
     nil
     sops
     seahorse # for gpg
-    (remmina.override {
-      withKf5Wallet = false;
-    })
+    remmina
 
     # Communication
     slack
@@ -105,6 +88,7 @@
     starsector
     bottles
     prismlauncher
+    config.nur.repos.demivan.cataclysm-dda
 
     # Media
     gimp
@@ -173,7 +157,7 @@
       name = config.font.family;
       size = 12;
     };
-    theme = "Catppuccin-Mocha";
+    themeFile = "Catppuccin-Mocha";
     settings = {
       window_padding_width = 6;
     };

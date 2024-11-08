@@ -56,7 +56,7 @@
     pnpmDeps = pnpm.fetchDeps {
       pname = "ags";
       src = ./.;
-      hash = "sha256-3UYm4dKllC/XgLLd6WxJc9gOXeuS4jeORBXH/3Xzo/Y=";
+      hash = "sha256-ceRpiaMepffoT2XdV1TYURHbeveDUcUB1yHFM8FmXuo=";
     };
 
     nativeBuildInputs = [

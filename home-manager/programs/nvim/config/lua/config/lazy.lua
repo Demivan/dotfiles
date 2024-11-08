@@ -24,25 +24,38 @@ require("lazy").setup({
       }
     },
     {
-      "supermaven-inc/supermaven-nvim",
-      config = function()
-        require("supermaven-nvim").setup({})
-      end,
+      "nvim-cmp",
+        dependencies = {
+          "supermaven-inc/supermaven-nvim",
+          build = ":SupermavenUseFree", -- remove this line if you are using pro
+          opts = {},
+        },
+        ---@param opts cmp.ConfigSchema
+        opts = function(_, opts)
+          table.insert(opts.sources, 1, {
+            name = "supermaven",
+            group_index = 1,
+            priority = 100,
+          })
+        end,
     },
     {
       "stevearc/conform.nvim",
-      optional = true,
+      optional = true, 
       opts = {
-        formatters_by_ft = {
-          ["javascript"] = { "eslint" },
-          ["typescript"] = { "eslint" },
-          ["vue"] = { "eslint" },
+        default_format_opts = {
+          lsp_format = "fallback",
         },
       },
     },
     {
       "neovim/nvim-lspconfig",
       opts = {
+        format = {
+          filter = function(client)
+            return client.name ~= "volar"
+          end,
+        },
         servers = {
           omnisharp = {
             cmd = { "/nix/store/zpvg8d9zwwxj6g344cdqv3grpldcxvxz-omnisharp-roslyn-1.39.11/bin/OmniSharp" }

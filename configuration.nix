@@ -29,6 +29,13 @@
     settings = {
       experimental-features = ["nix-command" "flakes"];
       auto-optimise-store = true;
+
+      extra-substituters = [
+        "https://demivan.cachix.org"
+      ];
+      extra-trusted-public-keys = [
+        "demivan.cachix.org-1:0uL5FTvK9Q/t7O8BouRVglZbhPifAMLsl6P4V/cj5z8="
+      ];
     };
   };
 

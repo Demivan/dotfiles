@@ -8,6 +8,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nur.url = "github:nix-community/NUR";
+
+    lix-module = {
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.0.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     zen-browser = {
       url = "github:MarceColl/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -33,6 +40,8 @@
   outputs = {
     self,
     nixpkgs,
+    lix-module,
+    nur,
     home-manager,
     nixpkgs-mozilla,
     nix-colors,
@@ -77,6 +86,8 @@
       };
 
       modules = [
+        lix-module.nixosModules.default
+        nur.nixosModules.nur
         extraOptions
         ./configuration.nix
       ];
@@ -94,6 +105,7 @@
       };
 
       modules = [
+        nur.hmModules.nur
         extraOptions
         # inputs.hyprland.homeManagerModules.default
         ./home-manager/home.nix
