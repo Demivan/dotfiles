@@ -1,4 +1,5 @@
 .idea/
 
-ags/types/
-ags/node_modules/
+**/ags/types/
+**/ags/node_modules/
+**/ags/dist/

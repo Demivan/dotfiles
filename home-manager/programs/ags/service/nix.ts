@@ -88,7 +88,7 @@ class Nix extends Service {
     this.ready = false
     this.#db = {}
 
-    const search = await bash(`cd ${Utils.CACHE_DIR} && nix search ${nixpkgs} --json`)
+    const search = await bash(`cd ${Utils.CACHE_DIR} && nix search ${nixpkgs} ^ --json`)
     if (!search) {
       this.ready = true
       return
