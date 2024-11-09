@@ -1,4 +1,3 @@
-import type { Opt } from 'lib/option'
 import options from 'options'
 
 const deps = [

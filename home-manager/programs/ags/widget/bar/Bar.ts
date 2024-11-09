@@ -13,6 +13,7 @@ import ScreenRecord from './buttons/ScreenRecord'
 import Messages from './buttons/Messages'
 
 import '../../style/widgets/bar.scss'
+import Weather from './buttons/Weather'
 
 const { start, center, end } = options.bar.layout
 const { transparent, position } = options.bar
@@ -23,6 +24,7 @@ const widget = {
   battery: BatteryBar,
   colorpicker: ColorPicker,
   date: Date,
+  weather: Weather,
   launcher: Launcher,
   media: Media,
   powermenu: PowerMenu,

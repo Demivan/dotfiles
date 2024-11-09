@@ -77,6 +77,7 @@ const options = mkOptions(OPTIONS, {
       ]),
       center: opt<Array<import('widget/bar/Bar').BarWidget>>([
         'date',
+        'weather',
       ]),
       end: opt<Array<import('widget/bar/Bar').BarWidget>>([
         'media',
@@ -101,7 +102,7 @@ const options = mkOptions(OPTIONS, {
       action: opt(() => App.toggleWindow('launcher')),
     },
     date: {
-      format: opt('%H:%M - %A %e.'),
+      format: opt('%H:%M - %A %B %e.'),
       action: opt(() => App.toggleWindow('datemenu')),
     },
     battery: {

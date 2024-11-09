@@ -217,11 +217,6 @@
     source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/home-manager/programs/nvim/config/init.lua";
   };
 
-  # Media
-  services.playerctld = {
-    enable = true;
-  };
-
   # Theme
   gtk = {
     enable = true;
