@@ -10,16 +10,6 @@
 
     nur.url = "github:nix-community/NUR";
 
-    lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.0.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    zen-browser = {
-      url = "github:MarceColl/zen-browser-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     hyprland = {
       type = "git";
       url = "https://github.com/hyprwm/Hyprland";
@@ -27,7 +17,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     ags = {
-      url = "github:Aylur/ags";
+      url = "github:Aylur/ags/v1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-colors.url = "github:misterio77/nix-colors";
@@ -40,7 +30,6 @@
   outputs = {
     self,
     nixpkgs,
-    lix-module,
     nur,
     home-manager,
     nixpkgs-mozilla,
@@ -67,7 +56,7 @@
         font = pkgs.lib.mkOption {
           description = "Font config";
           default = {
-            name = "JetBrainsMono";
+            name = "jetbrains-mono";
             family = "JetBrainsMono Nerd Font";
           };
         };
@@ -86,8 +75,7 @@
       };
 
       modules = [
-        lix-module.nixosModules.default
-        nur.nixosModules.nur
+        nur.modules.nixos.default
         extraOptions
         ./configuration.nix
       ];
@@ -105,13 +93,11 @@
       };
 
       modules = [
-        nur.hmModules.nur
+        # nur.modules.home-manager.default
         extraOptions
-        # inputs.hyprland.homeManagerModules.default
         ./home-manager/home.nix
         ({system, ...}: {
           home.packages = [
-            inputs.zen-browser.packages."${system}".default
             ags
           ];
         })

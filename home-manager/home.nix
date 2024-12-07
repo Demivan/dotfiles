@@ -49,7 +49,7 @@
   # environment.
   home.packages = with pkgs; [
     # Looks
-    (nerdfonts.override {fonts = [config.font.name];})
+    nerd-fonts."${config.font.name}"
 
     # General
     obsidian
@@ -88,7 +88,6 @@
     starsector
     bottles
     prismlauncher
-    config.nur.repos.demivan.cataclysm-dda
 
     # Media
     gimp
@@ -145,7 +144,6 @@
 
   # Shell
   programs.fish = {enable = true;};
-
   programs.zoxide = {
     enable = true;
     enableFishIntegration = true;
@@ -160,8 +158,10 @@
     themeFile = "Catppuccin-Mocha";
     settings = {
       window_padding_width = 6;
+      confirm_os_window_close = 0;
+      enable_audio_bell = false;
+      input_delay = 0;
     };
-    shellIntegration.enableFishIntegration = true;
   };
 
   programs.starship = {
@@ -187,6 +187,13 @@
 
   programs.zellij = {
     enable = true;
+    enableFishIntegration = false;
+
+    settings = {
+      simplified_ui = true;
+
+      theme = "catppuccin-mocha";
+    };
   };
 
   programs.neovim = {
