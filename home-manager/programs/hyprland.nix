@@ -55,12 +55,12 @@
         rounding = 12;
         "blur:enabled" = false;
         "blur:xray" = false;
-        drop_shadow = true;
-        shadow_range = 25;
-        shadow_render_power = 15;
-        shadow_ignore_window = false;
-        "col.shadow" = "rgb(${config.colorScheme.palette.base00})";
-        "col.shadow_inactive" = "rgb(${config.colorScheme.palette.base00})";
+        "shadow:enabled" = true;
+        "shadow:range" = 25;
+        "shadow:render_power" = 15;
+        "shadow:ignore_window" = false;
+        "shadow:color" = "rgb(${config.colorScheme.palette.base00})";
+        "shadow:color_inactive" = "rgb(${config.colorScheme.palette.base00})";
       };
 
       "$mod" = "SUPER";
