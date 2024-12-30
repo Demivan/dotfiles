@@ -10,6 +10,10 @@
 
     nur.url = "github:nix-community/NUR";
 
+    ghostty = {
+      url = "github:ghostty-org/ghostty";
+    };
+
     hyprland = {
       type = "git";
       url = "https://github.com/hyprwm/Hyprland";
@@ -34,6 +38,7 @@
     home-manager,
     nixpkgs-mozilla,
     nix-colors,
+    ghostty,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -49,7 +54,7 @@
       ];
     };
 
-    ags = pkgs.callPackage ./home-manager/programs/ags { inherit inputs; };
+    ags = pkgs.callPackage ./home-manager/programs/ags {inherit inputs;};
 
     extraOptions = {lib, ...}: {
       options = {

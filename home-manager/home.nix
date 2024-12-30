@@ -72,6 +72,7 @@
         sdk_8_0
       ])
     go
+    inputs.ghostty.packages.${system}.default
 
     # NixOS
     nil
