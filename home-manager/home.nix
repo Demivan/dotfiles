@@ -136,7 +136,7 @@
 
   programs.firefox = {
     enable = true;
-    package = pkgs.floorp;
+    package = import ./programs/firefox/zen.nix {inherit pkgs;};
 
     profiles.${username} = {
     };
