@@ -26,8 +26,9 @@
     };
     nix-colors.url = "github:misterio77/nix-colors";
 
-    nixpkgs-mozilla = {
-      url = "github:mozilla/nixpkgs-mozilla";
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -36,7 +37,7 @@
     nixpkgs,
     nur,
     home-manager,
-    nixpkgs-mozilla,
+    rust-overlay,
     nix-colors,
     ghostty,
     ...
@@ -50,7 +51,7 @@
       config.allowUnfree = true;
 
       overlays = [
-        # inputs.hyprland.overlays.default
+        rust-overlay.overlays.default
       ];
     };
 

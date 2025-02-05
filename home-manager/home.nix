@@ -54,9 +54,9 @@
     # General
     obsidian
     nemo
-    tor-browser-bundle-bin
 
     # Development
+    devenv
     pritunl-client
     git
     p7zip
@@ -70,6 +70,7 @@
     (with dotnetCorePackages;
       combinePackages [
         sdk_8_0
+        sdk_9_0
       ])
     go
     inputs.ghostty.packages.${system}.default
