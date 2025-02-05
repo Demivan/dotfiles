@@ -20,10 +20,6 @@
       submodules = true;
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    ags = {
-      url = "github:Aylur/ags/v1";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nix-colors.url = "github:misterio77/nix-colors";
 
     rust-overlay = {
@@ -55,8 +51,6 @@
       ];
     };
 
-    ags = pkgs.callPackage ./home-manager/programs/ags {inherit inputs;};
-
     extraOptions = {lib, ...}: {
       options = {
         font = pkgs.lib.mkOption {
@@ -77,7 +71,6 @@
         inherit system;
         inherit inputs;
         inherit username;
-        inherit ags;
       };
 
       modules = [
@@ -95,18 +88,12 @@
         inherit inputs;
         inherit username;
         inherit nix-colors;
-        inherit ags;
       };
 
       modules = [
         # nur.modules.home-manager.default
         extraOptions
         ./home-manager/home.nix
-        ({system, ...}: {
-          home.packages = [
-            ags
-          ];
-        })
       ];
     };
 
