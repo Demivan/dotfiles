@@ -69,9 +69,16 @@
 
   services.pcscd.enable = true;
 
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = true;
-  services.blueman.enable = true;
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+
+    settings.General = {
+      Privacy = "device";
+    };
+  };
+
+  hardware.xpadneo.enable = true;
 
   hardware.logitech.wireless.enable = true;
   hardware.logitech.wireless.enableGraphical = true;
