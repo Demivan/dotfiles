@@ -970,4 +970,9 @@ textbox {
 
     theme = "${config.home.homeDirectory}/${config.xdg.configFile."rofi/themes/catppuccin-macchiato.rasi".target}";
   };
+
+  services.mako = {
+    enable = true;
+    defaultTimeout = 5000;
+  };
 }
