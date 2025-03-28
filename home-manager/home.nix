@@ -43,6 +43,17 @@
         '';
       });
     })
+
+    (final: prev: {
+      maple-mono = prev.maple-mono.overrideAttrs (old: {
+        version = "7.0";
+
+        src = pkgs.fetchurl {
+          url = "https://github.com/subframe7536/Maple-font/releases/download/v7.0/MapleMono-ttf.zip";
+          sha256 = "sha256-FglonkbnphiwmxGj7Z0ozfHMwpJj7+96g6WMtMe3rIo=";
+        };
+      });
+    })
   ];
 
   # The home.packages option allows you to install Nix packages into your
@@ -50,6 +61,7 @@
   home.packages = with pkgs; [
     # Looks
     nerd-fonts."${config.font.name}"
+    maple-mono
 
     # General
     obsidian
@@ -195,6 +207,76 @@
       simplified_ui = true;
 
       theme = "catppuccin-mocha";
+    };
+  };
+
+  programs.helix = {
+    enable = true;
+
+    extraPackages = with pkgs; [
+      typescript-language-server
+      vue-language-server
+
+      yaml-language-server
+    ];
+
+    languages = with pkgs; {
+      typescript-language-server = {
+        command = "${typescript-language-server}/bin/typescript-language-server";
+        args = [ "--stdio" ];
+        roots = ["package.json" "tsconfig.json" ".git"];
+        config = {
+          documentFormatting = false;
+          tsserver = {
+            path = "./node_modules/typescript/lib";
+            fallbackPath = "${typescript}/lib/node_modules/typescript/lib";
+            logVerbosity = "verbose";
+          };
+          vue = {
+            inlayHints = {
+              includeInlayEnumMemberValueHints = true;
+              includeInlayFunctionLikeReturnTypeHints = true;
+              includeInlayFunctionParameterTypeHints = true;
+              includeInlayParameterNameHints = "all";
+              includeInlayParameterNameHintsWhenArgumentMatchesName = true;
+              includeInlayPropertyDeclarationTypeHints = true;
+              includeInlayVariableTypeHints = true;
+            };
+          };
+          plugins = [{
+            name = "@vue/typescript-plugin";
+            location = "${vue-language-server}/bin/vue-language-server";
+            languages = [ "vue" ];
+          }];
+        };
+      };
+
+      vuels = {
+        command = "${vue-language-server}/bin/vue-language-server";
+        args = [ "--stdio" ];
+        roots = ["package.json" ".git"];
+        config = {
+          vue = {
+            hybridMode = true;
+
+            format = {
+              script.initialIndent = true;
+            };
+          };
+        };
+      };
+
+      language = [
+        {
+          name = "vue";
+          auto-format = true;
+          language-servers = [ "vuels" "typescript-language-server" ];
+        }
+      ];
+    };
+
+    settings = {
+      theme = "catppuccin_mocha";
     };
   };
 

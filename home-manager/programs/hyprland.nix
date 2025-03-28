@@ -42,7 +42,7 @@
       };
 
       cursor = {
-        no_warps = true;
+        persistent_warps = true;
       };
 
       misc = {
@@ -355,8 +355,8 @@
         "hyprland/language" = {
           format-en = "🇺🇸 ENG (US)";
           format-uk = "🇺🇦 UKR";
-          keyboard-name = "at-translated-set-2-keyboard";
-          on-click = "hyprctl switchxkblayout at-translated-set-2-keyboard next";
+          keyboard-name = "bastard-keyboards-charybdis-(4x6)-splinky-keyboard";
+          on-click = "hyprctl switchxkblayout 'bastard-keyboards-charybdis-(4x6)-splinky-keyboard' next";
         };
         keyboard-state = {
           capslock = true;
