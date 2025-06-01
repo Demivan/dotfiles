@@ -9,7 +9,8 @@
 }: {
   imports = [
     nix-colors.homeManagerModules.default
-    ./programs/hyprland.nix
+    programs/hyprland.nix
+    programs/git.nix
     modules/ssh.nix
     modules/sops.nix
   ];
@@ -61,7 +62,6 @@
     # Development
     devenv
     pritunl-client
-    git
     p7zip
     neovide
     jetbrains-toolbox
