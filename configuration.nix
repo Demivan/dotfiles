@@ -321,7 +321,13 @@ in {
   services.udisks2.enable = true;
 
   # Custom modules
-  yubikey.enable = true;
+  yubikey = {
+    enable = true;
+    identifiers = {
+      kyiv = 15474464;
+      kobe = 15474477;
+    };
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
