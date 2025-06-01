@@ -27,6 +27,14 @@ in
     extraConfig = ''
       AddKeysToAgent yes
     '';
+
+    matchBlocks = {
+      "git" = {
+        host = "github.com gitlab.com";
+        user = "git";
+        identityFile = "~/.ssh/id_yubikey";
+      };
+    };
   };
   home.file = {
     ".ssh/sockets/.keep".text = "# Managed by Home Manager";
