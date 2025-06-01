@@ -43,17 +43,6 @@
         '';
       });
     })
-
-    (final: prev: {
-      maple-mono = prev.maple-mono.overrideAttrs (old: {
-        version = "7.0";
-
-        src = pkgs.fetchurl {
-          url = "https://github.com/subframe7536/Maple-font/releases/download/v7.0/MapleMono-ttf.zip";
-          sha256 = "sha256-FglonkbnphiwmxGj7Z0ozfHMwpJj7+96g6WMtMe3rIo=";
-        };
-      });
-    })
   ];
 
   # The home.packages option allows you to install Nix packages into your
@@ -61,7 +50,7 @@
   home.packages = with pkgs; [
     # Looks
     nerd-fonts."${config.font.name}"
-    maple-mono
+    maple-mono.variable
 
     # General
     obsidian
@@ -86,6 +75,7 @@
       ])
     go
     inputs.ghostty.packages.${system}.default
+    yubioath-flutter
 
     # NixOS
     nil
@@ -104,6 +94,7 @@
     prismlauncher
 
     # Media
+    libreoffice
     gimp
   ];
 
@@ -112,7 +103,7 @@
   programs.gpg.enable = true;
   services.gpg-agent = {
     enable = true;
-    pinentryPackage = pkgs.pinentry-gnome3;
+    pinentry.package = pkgs.pinentry-gnome3;
   };
 
   fonts.fontconfig = {

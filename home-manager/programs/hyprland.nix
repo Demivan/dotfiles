@@ -263,19 +263,8 @@
           orientation = "horizontal";
           modules = [
             "custom/media"
-            "custom/webcam"
             "privacy"
-            "custom/recording"
-            "custom/geo"
-            "custom/dunst"
-            "custom/night_mode"
-            "idle_inhibitor"
           ];
-        };
-        "custom/webcam" = {
-          interval = 1;
-          exec = "fish -c check_webcam";
-          return-type = "json";
         };
         privacy = {
           icon-spacing = 1;
@@ -289,30 +278,6 @@
               type = "screenshare";
             }
           ];
-        };
-        "custom/recording" = {
-          interval = 1;
-          exec-if = "pgrep wl-screenrec";
-          exec = "fish -c check_recording";
-          return-type = "json";
-        };
-        "custom/geo" = {
-          interval = 1;
-          exec-if = "pgrep geoclue";
-          exec = "fish -c check_geo_module";
-          return-type = "json";
-        };
-        "custom/night_mode" = {
-          return-type = "json";
-          interval = 1;
-          exec = "fish -c check_night_mode";
-          on-click = "fish -c night_mode_toggle";
-        };
-        "custom/dunst" = {
-          return-type = "json";
-          exec = "fish -c dunst_pause";
-          on-click = "dunstctl set-paused toggle";
-          restart-interval = 1;
         };
         idle_inhibitor = {
           format = "{icon}";
@@ -973,6 +938,9 @@ textbox {
 
   services.mako = {
     enable = true;
-    defaultTimeout = 5000;
+
+    settings = {
+      default-timeout = 5000;
+    };
   };
 }
