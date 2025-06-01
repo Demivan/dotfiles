@@ -7,6 +7,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     nur.url = "github:nix-community/NUR";
 
@@ -25,6 +29,17 @@
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    #
+    # ========= Personal Repositories =========
+    #
+    # Private secrets repo.
+    # Authenticate via ssh and use shallow clone
+    nix-secrets = {
+      url = "git+ssh://git@github.com/demivan/nix-secrets.git?ref=main&shallow=1";
+      flake = false;
+      inputs = { };
     };
   };
 
@@ -76,6 +91,7 @@
       modules = [
         nur.modules.nixos.default
         extraOptions
+        modules/yubikey
         ./configuration.nix
       ];
     };

@@ -10,6 +10,8 @@
   imports = [
     nix-colors.homeManagerModules.default
     ./programs/hyprland.nix
+    modules/ssh.nix
+    modules/sops.nix
   ];
 
   colorScheme = nix-colors.colorSchemes.catppuccin-mocha;
@@ -75,7 +77,6 @@
       ])
     go
     inputs.ghostty.packages.${system}.default
-    yubioath-flutter
 
     # NixOS
     nil

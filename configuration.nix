@@ -6,8 +6,11 @@
   inputs,
   username,
   pkgs,
+  lib,
   ...
-}: {
+}: let
+  pubKeys = lib.filesystem.listFilesRecursive ./common/keys;
+in {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -244,11 +247,21 @@
     wireplumber.enable = true;
   };
 
+  services.openssh = {
+    enable = true;
+    # require public key authentication for better security
+    settings.PasswordAuthentication = false;
+    settings.KbdInteractiveAuthentication = false;
+  };
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${username} = {
     isNormalUser = true;
     shell = pkgs.fish;
     extraGroups = ["wheel" "docker"]; # Enable ‘sudo’ for the user.
+
+    # These get placed into /etc/ssh/authorized_keys.d/<name> on nixos
+    openssh.authorizedKeys.keys = lib.lists.forEach pubKeys (key: builtins.readFile key);
 
     autoSubUidGidRange = true;
   };
@@ -306,6 +319,9 @@
   services.devmon.enable = true;
   services.gvfs.enable = true;
   services.udisks2.enable = true;
+
+  # Custom modules
+  yubikey.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
