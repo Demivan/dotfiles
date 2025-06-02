@@ -13,9 +13,12 @@ in {
     userEmail = publicGitEmail;
     userName = "Ivan Demchuk";
     extraConfig = {
-      log.showSignature = "true";
+      log.showSignature = true;
       init.defaultBranch = "main";
-      pull.rebase = "true";
+      pull.rebase = true;
+      push = {
+        autoSetupRemote = true;
+      };
 
       url = {
         "ssh://git@github.com".insteadOf = "https://github.com";
