@@ -1,5 +1,27 @@
 {
   "nodes": {
+    "ags": {
+      "inputs": {
+        "astal": "astal",
+        "nixpkgs": [
+          "hyprpanel",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1736090999,
+        "narHash": "sha256-B5CJuHqfJrzPa7tObK0H9669/EClSHpa/P7B9EuvElU=",
+        "owner": "aylur",
+        "repo": "ags",
+        "rev": "5527c3c07d92c11e04e7fd99d58429493dba7e3c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "aylur",
+        "repo": "ags",
+        "type": "github"
+      }
+    },
     "aquamarine": {
       "inputs": {
         "hyprutils": [
@@ -30,6 +52,28 @@
       "original": {
         "owner": "hyprwm",
         "repo": "aquamarine",
+        "type": "github"
+      }
+    },
+    "astal": {
+      "inputs": {
+        "nixpkgs": [
+          "hyprpanel",
+          "ags",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1735172721,
+        "narHash": "sha256-rtEAwGsHSppnkR3Qg3eRJ6Xh/F84IY9CrBBLzYabalY=",
+        "owner": "aylur",
+        "repo": "astal",
+        "rev": "6c84b64efc736e039a8a10774a4a1bf772c37aa2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "aylur",
+        "repo": "astal",
         "type": "github"
       }
     },
@@ -397,6 +441,27 @@
         "type": "github"
       }
     },
+    "hyprpanel": {
+      "inputs": {
+        "ags": "ags",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1748846574,
+        "narHash": "sha256-w+3B0x86ZXJm6P+XPemPwodGwNgibGuwWv99elJQ5vI=",
+        "owner": "Jas-SinghFSU",
+        "repo": "HyprPanel",
+        "rev": "83affe16057676dc20877bb2d7e64a31983ffaaf",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Jas-SinghFSU",
+        "repo": "HyprPanel",
+        "type": "github"
+      }
+    },
     "hyprutils": {
       "inputs": {
         "nixpkgs": [
@@ -469,10 +534,10 @@
     "nix-secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1748776291,
-        "narHash": "sha256-3kfFLcUYA6H6x+UMOk7lYrPtF6ps3I93XSNJvl6cYNw=",
+        "lastModified": 1748853755,
+        "narHash": "sha256-upeXQPcMI1wSIuDkb8nH+zgsuZ+zeXbSfMZf40v1H9c=",
         "ref": "main",
-        "rev": "ce33b15f51feb6073612142f6bdfce236d5ce27a",
+        "rev": "adc4f97733142a38ab774e7fbd3572b20617dc68",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/demivan/nix-secrets.git"
@@ -592,6 +657,7 @@
         "ghostty": "ghostty",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
+        "hyprpanel": "hyprpanel",
         "nix-colors": "nix-colors",
         "nix-secrets": "nix-secrets",
         "nixpkgs": "nixpkgs_2",

@@ -282,6 +282,7 @@ in {
     rust-bin.stable.latest.default
   ];
 
+  services.gnome.glib-networking.enable = true;
   programs.hyprland = {
     enable = true;
     portalPackage = pkgs.xdg-desktop-portal-wlr;

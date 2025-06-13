@@ -9,8 +9,9 @@
 }: {
   imports = [
     nix-colors.homeManagerModules.default
-    programs/hyprland.nix
     programs/git.nix
+    modules/ui/hyprland.nix
+    modules/ui/hypr-panel.nix
     modules/ssh.nix
     modules/sops.nix
   ];
@@ -97,6 +98,9 @@
     # Media
     libreoffice
     gimp
+
+    #
+    bitwarden-desktop
   ];
 
   services.gnome-keyring.enable = true;
