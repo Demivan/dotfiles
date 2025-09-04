@@ -19,18 +19,17 @@ in
   programs.ssh = {
     enable = true;
 
-    controlMaster = "auto";
-    controlPath = "~/.ssh/sockets/S.%r@%h:%p";
-    controlPersist = "10m";
-
-    # req'd for enabling yubikey-agent
-    extraConfig = ''
-      AddKeysToAgent yes
-    '';
+    enableDefaultConfig = false;
 
     matchBlocks = {
+      "*" = {
+        addKeysToAgent = "yes";
+        controlMaster = "auto";
+        controlPath = "~/.ssh/sockets/S.%r@%h:%p";
+        controlPersist = "10m";
+      };
       "git" = {
-        host = "github.com gitlab.com";
+        host = "gitlab.gnol.com";
         user = "git";
         identityFile = "~/.ssh/id_yubikey";
       };

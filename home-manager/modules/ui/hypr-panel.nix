@@ -1,13 +1,8 @@
 {
   lib,
-  inputs,
   config,
-  username,
-  pkgs,
   ...
 }: {
-  imports = [ inputs.hyprpanel.homeManagerModules.hyprpanel ];
-
   sops.secrets.weather_api_key = {
     mode = "664";
   };
@@ -17,7 +12,6 @@
 
     systemd.enable = true;
 
-    overwrite.enable = true;
     settings = {
       bar.launcher.icon = "";
 

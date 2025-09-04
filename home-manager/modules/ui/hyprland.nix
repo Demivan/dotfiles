@@ -28,7 +28,10 @@
     enable = true;
 
     settings = {
-      monitor = ", preferred, auto, 1, bitdepth, 8, vrr, 1";
+      monitor = [
+        "DP-2, 2560x1440, 0x0, 1"
+        "HDMI-A-1, 3840x2160, 1440x800, 1.5,"
+      ];
 
       general = {
         border_size = 3;

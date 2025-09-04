@@ -98,6 +98,8 @@
     # Media
     libreoffice
     gimp
+    jamesdsp
+    ffmpeg
 
     #
     bitwarden-desktop
