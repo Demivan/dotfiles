@@ -101,138 +101,13 @@ in {
   };
 
   programs.nix-ld.enable = true;
-  programs.nix-ld.libraries = with pkgs; [
-    SDL
-    SDL2
-    SDL2_image
-    SDL2_mixer
-    SDL2_ttf
-    SDL_image
-    SDL_mixer
-    SDL_ttf
-    alsa-lib
-    at-spi2-atk
-    at-spi2-core
-    atk
-    bzip2
-    cairo
-    cups
-    curlWithGnuTls
-    dbus
-    dbus-glib
-    desktop-file-utils
-    e2fsprogs
-    expat
-    flac
-    fontconfig
-    freeglut
-    freetype
-    fribidi
-    fuse
-    fuse3
-    gdk-pixbuf
-    glew110
-    glib
-    gmp
-    gst_all_1.gst-plugins-base
-    gst_all_1.gst-plugins-ugly
-    gst_all_1.gstreamer
-    gtk2
-    harfbuzz
-    icu
-    keyutils.lib
-    libGL
-    libGLU
-    libappindicator-gtk2
-    libcaca
-    libcanberra
-    libcap
-    libclang.lib
-    libdbusmenu
-    libdrm
-    libgcrypt
-    libgpg-error
-    libidn
-    libjack2
-    libjpeg
-    libmikmod
-    libogg
-    libpng12
-    libpulseaudio
-    librsvg
-    libsamplerate
-    libthai
-    libtheora
-    libtiff
-    libudev0-shim
-    libusb1
-    libuuid
-    libvdpau
-    libvorbis
-    libvpx
-    libxcrypt-legacy
-    libxkbcommon
-    libxml2
-    mesa
-    nspr
-    nss
-    openssl
-    p11-kit
-    pango
-    pixman
-    python3
-    speex
-    stdenv.cc.cc
-    tbb
-    udev
-    vulkan-loader
-    wayland
-    xorg.libICE
-    xorg.libSM
-    xorg.libX11
-    xorg.libXScrnSaver
-    xorg.libXcomposite
-    xorg.libXcursor
-    xorg.libXdamage
-    xorg.libXext
-    xorg.libXfixes
-    xorg.libXft
-    xorg.libXi
-    xorg.libXinerama
-    xorg.libXmu
-    xorg.libXrandr
-    xorg.libXrender
-    xorg.libXt
-    xorg.libXtst
-    xorg.libXxf86vm
-    xorg.libpciaccess
-    xorg.libxcb
-    xorg.xcbutil
-    xorg.xcbutilimage
-    xorg.xcbutilkeysyms
-    xorg.xcbutilrenderutil
-    xorg.xcbutilwm
-    xorg.xkeyboardconfig
-    xz
-    zlib
-  ];
+  programs.nix-ld.libraries = [];
 
-  security.polkit.enable = true;
+
+  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.greetd.enableGnomeKeyring = true;
+
   systemd = {
-    user.services.polkit-gnome-authentication-agent-1 = {
-      description = "polkit-gnome-authentication-agent-1";
-      wantedBy = ["graphical-session.target"];
-      wants = ["graphical-session.target"];
-      after = ["graphical-session.target"];
-      serviceConfig = {
-        Type = "simple";
-        ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-        Restart = "on-failure";
-        RestartSec = 1;
-        TimeoutStopSec = 10;
-      };
-    };
-
     packages = [pkgs.pritunl-client];
     targets.multi-user.wants = ["pritunl-client.service"];
   };
@@ -285,7 +160,18 @@ in {
   services.gnome.glib-networking.enable = true;
   programs.hyprland = {
     enable = true;
-    portalPackage = pkgs.xdg-desktop-portal-wlr;
+  };
+
+  xdg.portal = {
+    enable = true;
+    configPackages = with pkgs; [
+      xdg-desktop-portal-hyprland
+      xdg-desktop-portal-gtk
+    ];
+  };
+  systemd.user.services.xdg-desktop-portal-gtk = {
+    wantedBy = [ "xdg-desktop-portal.service" ];
+    before = [ "xdg-desktop-portal.service" ];
   };
 
   # Hint to Electron apps to run native Wayland

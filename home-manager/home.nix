@@ -61,13 +61,13 @@
     nemo
 
     # Development
+    jetbrains.rider
     devenv
     pritunl-client
     p7zip
     neovide
-    jetbrains-toolbox
-    nodejs_22
-    corepack_22 # pnpm
+    nodejs_24
+    corepack_24 # pnpm
     deno
     bun
     eza
@@ -104,8 +104,6 @@
     #
     bitwarden-desktop
   ];
-
-  services.gnome-keyring.enable = true;
 
   programs.gpg.enable = true;
   services.gpg-agent = {
@@ -276,6 +274,14 @@
     settings = {
       theme = "catppuccin_mocha";
     };
+  };
+
+  programs.zed-editor = {
+    enable = true;
+
+    extensions = [
+      "csharp"
+    ];
   };
 
   programs.neovim = {
