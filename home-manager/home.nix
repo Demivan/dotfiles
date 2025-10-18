@@ -61,6 +61,7 @@
     nemo
 
     # Development
+    jetbrains-toolbox
     jetbrains.rider
     devenv
     pritunl-client

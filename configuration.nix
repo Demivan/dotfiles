@@ -44,26 +44,25 @@ in {
   };
 
   virtualisation = {
-    containers = {
-      enable = true;
-
-      policy = {
-        default = [
-          {
-            type = "insecureAcceptAnything";
-          }
-        ];
-      };
-    };
+    containers.enable = true;
 
     docker = {
       enable = true;
       autoPrune.enable = true;
+
+      daemon.settings = {
+        ipv6 = true;
+      };
     };
 
     podman = {
       enable = true;
       autoPrune.enable = true;
+
+      defaultNetwork.settings = {
+        ipv6_enabled = true;
+        dns_enabled = true;
+      };
     };
 
     oci-containers.backend = "podman";
