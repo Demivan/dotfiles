@@ -1,8 +1,8 @@
 {pkgs, ...}: let
-  version = "1.14.9b";
+  version = "1.16.4b";
   downloadUrl = {
     specific.url = "https://github.com/zen-browser/desktop/releases/download/${version}/zen.linux-x86_64.tar.xz";
-    specific.sha256 = "sha256:1k27vl9b2y87skwy1mg955n74x504dvz7w3r2yxir6ib2srnslzi";
+    specific.sha256 = "sha256:1m2ba5011km8mrj3vxh991bypxqdgl5m02ab78p1rg8x1c45vjqc";
   };
 
   runtimeLibs = with pkgs;
