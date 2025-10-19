@@ -2,18 +2,21 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 {
-  system,
-  inputs,
-  username,
-  pkgs,
   lib,
+  inputs,
+  pkgs,
+  username,
   ...
 }: let
   pubKeys = lib.filesystem.listFilesRecursive ./common/keys;
 in {
+  nixpkgs.overlays = [ inputs.niri.overlays.niri ];
+
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+
+    modules/ui
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -153,12 +156,18 @@ in {
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     git
     wget
-    rust-bin.stable.latest.default
+    gcc
+    (rust-bin.stable.latest.default.override {
+      extensions = [ "rust-src" ];
+    })
   ];
 
-  services.gnome.glib-networking.enable = true;
   programs.hyprland = {
     enable = true;
+  };
+  programs.niri = {
+    enable = true;
+    package = pkgs.niri-unstable;
   };
 
   xdg.portal = {
@@ -180,20 +189,6 @@ in {
   services.displayManager.autoLogin = {
     enable = true;
     user = username;
-  };
-
-  services.greetd = {
-    enable = true;
-    settings = {
-      initial_session = {
-        command = "${pkgs.hyprland}/bin/Hyprland";
-        user = "${username}";
-      };
-      default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --greeting 'Welcome to NixOS!' --asterisks --remember --remember-user-session --time --cmd ${pkgs.hyprland}/bin/Hyprland";
-        user = "greeter";
-      };
-    };
   };
 
   systemd.tmpfiles.rules = [

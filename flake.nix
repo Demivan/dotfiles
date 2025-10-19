@@ -27,6 +27,25 @@
     };
     nix-colors.url = "github:misterio77/nix-colors";
 
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    dgop = {
+      url = "github:AvengeMedia/dgop";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    dms-cli = {
+      url = "github:AvengeMedia/danklinux";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    dankMaterialShell = {
+      url = "github:AvengeMedia/DankMaterialShell";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.dgop.follows = "dgop";
+      inputs.dms-cli.follows = "dms-cli";
+    };
+
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -48,6 +67,7 @@
     self,
     nixpkgs,
     nur,
+    niri,
     home-manager,
     rust-overlay,
     nix-colors,
@@ -90,8 +110,9 @@
       };
 
       modules = [
-        nur.modules.nixos.default
         extraOptions
+        nur.modules.nixos.default
+        niri.nixosModules.niri
         modules/yubikey
         ./configuration.nix
       ];
@@ -108,7 +129,6 @@
       };
 
       modules = [
-        # nur.modules.home-manager.default
         extraOptions
         ./home-manager/home.nix
       ];
