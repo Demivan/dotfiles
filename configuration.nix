@@ -16,7 +16,9 @@ in {
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
 
+    modules/yubikey
     modules/ui
+    modules/gaming
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -89,22 +91,10 @@ in {
   hardware.logitech.wireless.enable = true;
   hardware.logitech.wireless.enableGraphical = true;
 
-  # For steam support
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
-  };
-
-  programs.steam = {
-    enable = true;
-    extraCompatPackages = [
-      pkgs.proton-ge-bin
-    ];
-  };
+  hardware.graphics.enable = true;
 
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = [];
-
 
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.greetd.enableGnomeKeyring = true;

@@ -113,7 +113,6 @@
         extraOptions
         nur.modules.nixos.default
         niri.nixosModules.niri
-        modules/yubikey
         ./configuration.nix
       ];
     };
