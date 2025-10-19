@@ -10,8 +10,6 @@
   programs.hyprpanel = {
     enable = true;
 
-    systemd.enable = true;
-
     settings = {
       bar.launcher.icon = "";
 

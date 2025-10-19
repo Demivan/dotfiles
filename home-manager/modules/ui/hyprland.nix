@@ -111,6 +111,8 @@
 
     extraConfig = ''
       exec-once=hyprctl setcursor Bibata-Modern-Ice 22
+
+      exec-once=hyprpanel
     '';
   };
 
