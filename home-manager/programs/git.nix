@@ -1,7 +1,5 @@
 {
   lib,
-  config,
-  pkgs,
   username,
   ...
 }: let
@@ -40,7 +38,7 @@ in {
 
   home.file.".ssh/allowed_signers".text = ''
     # TODO: relativeToRoot
-    ${publicGitEmail} ${lib.fileContents (../../common/keys/id_kyiv.pub)}
-    ${publicGitEmail} ${lib.fileContents (../../common/keys/id_kobe.pub)}
+    ${publicGitEmail} ${lib.fileContents ../../common/keys/id_kyiv.pub}
+    ${publicGitEmail} ${lib.fileContents ../../common/keys/id_kobe.pub}
   '';
 }

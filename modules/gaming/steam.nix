@@ -1,16 +1,20 @@
 {
-  pkgs,
-  ...
-}: {
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
-  };
+  allowedUnfreePackages = [
+    "steam"
+    "steam-unwrapped"
+  ];
 
-  programs.steam = {
-    enable = true;
-    extraCompatPackages = [
-      pkgs.proton-ge-bin
-    ];
+  flake.modules.nixos.gaming = { pkgs, ... }: {
+    hardware.graphics = {
+      enable = true;
+      enable32Bit = true;
+    };
+
+    programs.steam = {
+      enable = true;
+      extraCompatPackages = [
+        pkgs.proton-ge-bin
+      ];
+    };
   };
 }

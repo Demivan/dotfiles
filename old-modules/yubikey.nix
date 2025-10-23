@@ -2,10 +2,10 @@
   config,
   pkgs,
   lib,
-  username,
   ...
 }:
 let
+  username = "demivan";
   homeDirectory = "/home/${username}";
 
   yubikey-up =

@@ -3,6 +3,14 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    # Dendritic pattern dependencies
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    import-tree = {
+      url = "github:vic/import-tree";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -63,76 +71,5 @@
     };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    nur,
-    niri,
-    home-manager,
-    rust-overlay,
-    nix-colors,
-    ghostty,
-    ...
-  } @ inputs: let
-    system = "x86_64-linux";
-    username = "demivan";
-
-    pkgs = import nixpkgs {
-      inherit system;
-
-      config.allowUnfree = true;
-
-      overlays = [
-        rust-overlay.overlays.default
-      ];
-    };
-
-    extraOptions = {lib, ...}: {
-      options = {
-        font = pkgs.lib.mkOption {
-          description = "Font config";
-          default = {
-            name = "jetbrains-mono";
-            family = "JetBrainsMono Nerd Font";
-          };
-        };
-      };
-    };
-  in {
-    nixosConfigurations."ivan-pc" = nixpkgs.lib.nixosSystem {
-      inherit system;
-      inherit pkgs;
-
-      specialArgs = {
-        inherit system;
-        inherit inputs;
-        inherit username;
-      };
-
-      modules = [
-        extraOptions
-        nur.modules.nixos.default
-        niri.nixosModules.niri
-        ./configuration.nix
-      ];
-    };
-
-    homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
-
-      extraSpecialArgs = {
-        inherit system;
-        inherit inputs;
-        inherit username;
-        inherit nix-colors;
-      };
-
-      modules = [
-        extraOptions
-        ./home-manager/home.nix
-      ];
-    };
-
-    formatter.${system} = pkgs.alejandra;
-  };
+  outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
 }
