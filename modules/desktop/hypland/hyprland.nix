@@ -1,8 +1,5 @@
 {
-  lib,
-  config,
-  ...
-}: {
+  flake.module.homeManager.hyprland = { lib, config, ... }: {
   wayland.windowManager.hyprland = let
     workspaces = map toString (lib.lists.range 1 8);
     directions = [
@@ -247,4 +244,5 @@ textbox {
       default-timeout = 5000;
     };
   };
+};
 }

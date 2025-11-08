@@ -5,6 +5,8 @@
   ];
 
   flake.modules.nixos.gaming = { pkgs, ... }: {
+    hardware.xpadneo.enable = true;
+
     hardware.graphics = {
       enable = true;
       enable32Bit = true;

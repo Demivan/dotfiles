@@ -4,13 +4,14 @@
     system = "x86_64-linux";
 
     modules = with inputs.self.modules.nixos; [
+      {
+        system.stateVersion = "23.11";
+      }
       base
       todo
       desktop
-      wayland
       niri
       gaming
-      development
     ];
   };
 
@@ -20,12 +21,15 @@
       pkgs = inputs.self.nixosConfigurations.ivan-pc.pkgs;
 
       modules = with inputs.self.modules.homeManager; [
-        base
+        {
+          home.stateVersion = "23.11";
+        }
         todo
-        desktop
-        wayland
+        demivan
+        browser
+        communication
         niri
-        gaming
+        # gaming
         development
       ];
     };

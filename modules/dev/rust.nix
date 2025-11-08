@@ -3,8 +3,8 @@
     inputs.rust-overlay.overlays.default
   ];
 
-  flake.modules.nixos.development = { pkgs, ... }: {
-    environment.systemPackages = with pkgs; [
+  flake.modules.homeManager.development = { pkgs, ... }: {
+    home.packages = with pkgs; [
       (rust-bin.stable.latest.default.override {
         extensions = [ "rust-src" ];
       })
