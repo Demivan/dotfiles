@@ -1,7 +1,7 @@
-{ inputs, ... }: {
-  flake.modules.homeManager.development = { pkgs, ... }: {
-    home.packages = [
-      inputs.ghostty.packages.${pkgs.stdenv.hostPlatform.system}.default
-    ];
+{
+  flake.modules.homeManager.development = {
+    programs.ghostty = {
+      enable = true;
+    };
   };
 }
