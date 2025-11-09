@@ -13,9 +13,13 @@
     boot.kernelModules = ["kvm-amd"];
     boot.extraModulePackages = [];
 
+    services.zfs.autoScrub.enable = true;
+    boot.zfs.extraPools = [ "zroot" ];
+
     fileSystems."/" = {
       device = "zroot/NIXROOT/default";
       fsType = "zfs";
+      options = [ "zfsutil" ];
     };
 
     fileSystems."/boot" = {

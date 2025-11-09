@@ -78,5 +78,16 @@
     };
   };
 
+  nixConfig = {
+    extra-substituters = [
+      "https://demivan.cachix.org"
+      "https://ghostty.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "demivan.cachix.org-1:0uL5FTvK9Q/t7O8BouRVglZbhPifAMLsl6P4V/cj5z8="
+      "ghostty.cachix.org-1:QB389yTa6gTyneehvqG58y0WnHjQOqgnA+wBnpWWxns="
+    ];
+  };
+
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
 }

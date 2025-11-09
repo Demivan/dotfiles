@@ -1,7 +1,7 @@
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-{ inputs, lib, ... }: let
+{ lib, ... }: let
   pubKeys = lib.filesystem.listFilesRecursive ../../../common/keys;
 
   username = "demivan";
@@ -10,8 +10,6 @@ in {
   allowedUnfreePackages = ["pritunl-client"];
 
   flake.modules.nixos.todo = { pkgs, ... }: {
-    nixpkgs.overlays = [ inputs.niri.overlays.niri ];
-
     imports = [
       ../../../old-modules/yubikey.nix
     ];
@@ -26,22 +24,6 @@ in {
 
     # Set your time zone.
     time.timeZone = "Europe/Kyiv";
-
-    nix = {
-      settings = {
-        experimental-features = ["nix-command" "flakes"];
-        auto-optimise-store = true;
-
-        extra-substituters = [
-          "https://demivan.cachix.org"
-          "https://ghostty.cachix.org"
-        ];
-        extra-trusted-public-keys = [
-          "demivan.cachix.org-1:0uL5FTvK9Q/t7O8BouRVglZbhPifAMLsl6P4V/cj5z8="
-          "ghostty.cachix.org-1:QB389yTa6gTyneehvqG58y0WnHjQOqgnA+wBnpWWxns="
-        ];
-      };
-    };
 
     virtualisation = {
       containers.enable = true;
@@ -127,7 +109,7 @@ in {
     programs.nh = {
       enable = true;
       clean.enable = true;
-      clean.extraArgs = "--keep-since 4d --keep 5";
+      clean.extraArgs = "--keep-since 4d --keep 15";
       flake = "/home/${username}/.dotfiles";
     };
 
